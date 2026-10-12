@@ -1,1519 +1,917 @@
+
 <!DOCTYPE html>
 <html lang="nl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#08783e">
-<meta name="description" content="Ontdek 30 heerlijke recepten, zoek gerechten, bewaar favorieten, plan je weekmenu en maak eenvoudig een boodschappenlijst met ReceptenKoning.">
-<title>ReceptenKoning | Recepten, weekplanner en boodschappen</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f5f1e9">
+<meta name="description" content="Ontdek ReceptenKoning: inspiratie, heerlijke recepten, favorieten en handige tools voor iedere thuiskok.">
+<title>ReceptenKoning — Tastefully Inspired</title>
 
 <style>
-:root{
-  --green:#08783e;
-  --dark:#075b31;
-  --pale:#e9f5ec;
-  --cream:#fbfaf7;
-  --ink:#202a25;
-  --muted:#737c75;
-  --line:#e6eae5;
-  --white:#fff;
-  --shadow:0 8px 28px rgba(30,50,35,.08);
+:root {
+  --paper:#f5f1e9;
+  --white:#fffdf9;
+  --ink:#25251f;
+  --muted:#77766e;
+  --line:#d9d4c9;
+  --green:#394c3d;
+  --accent:#b6a27c;
+  --shadow:0 18px 50px #29271d12;
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:120px}
-body{
-  margin:0;background:var(--cream);color:var(--ink);
-  font-family:Arial,Helvetica,sans-serif;line-height:1.6
-}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:Arial,Helvetica,sans-serif}
 button,input,select,textarea{font:inherit}
+button,a{ -webkit-tap-highlight-color:transparent }
 button{cursor:pointer}
 a{color:inherit;text-decoration:none}
-img{max-width:100%}
+img{display:block;width:100%;object-fit:cover}
 button:focus-visible,a:focus-visible,input:focus-visible,
-select:focus-visible,textarea:focus-visible{
-  outline:3px solid #75bd8b;outline-offset:3px
-}
-.top{
-  position:sticky;top:0;z-index:30;
-  background:#ffffffef;backdrop-filter:blur(12px);
-  border-bottom:1px solid var(--line)
-}
-.header{
-  max-width:1400px;margin:auto;padding:13px 4%;
-  min-height:72px;display:flex;align-items:center;gap:20px
-}
-.logo{font-size:23px;font-weight:900;color:var(--green);white-space:nowrap}
-.logo span{color:var(--ink)}
-.search{position:relative;flex:1}
-.search input{
-  width:100%;padding:13px 15px 13px 42px;
-  border:1px solid var(--line);border-radius:13px;background:#fafbf9
-}
-.search:before{
-  content:"⌕";position:absolute;left:14px;top:5px;
-  font-size:25px;color:var(--muted)
-}
-.navlinks{display:flex;gap:15px;font-size:13px;font-weight:800}
-.navlinks a:hover{color:var(--green)}
-.cart{
-  border:1px solid var(--line);background:white;
-  padding:10px 13px;border-radius:11px;font-weight:800
-}
-.cats{
-  display:flex;gap:7px;justify-content:center;padding:9px 4%;
-  background:white;border-top:1px solid #f2f3f0;overflow-x:auto
-}
-.cat{
-  flex:0 0 auto;border:0;border-radius:9px;background:white;
-  padding:9px 14px;color:#4d5850;font-size:13px;font-weight:800
-}
-.cat.active,.cat:hover{background:var(--green);color:white}
-main{max-width:1400px;margin:auto;padding:30px 4% 70px}
-.hero{
-  display:grid;grid-template-columns:1fr 1fr;gap:34px;
-  align-items:center;margin-bottom:35px
-}
-.heroimg{position:relative}
-.heroimg img{
-  width:100%;height:390px;object-fit:cover;border-radius:20px;
-  background:#e7e9e1;box-shadow:var(--shadow)
-}
-.tag{
-  position:absolute;left:15px;top:15px;background:white;
-  color:var(--green);font-size:12px;font-weight:900;
-  padding:8px 12px;border-radius:9px
-}
-.eyebrow{
-  display:inline-block;background:var(--pale);color:var(--green);
-  border-radius:7px;padding:5px 10px;font-size:11px;
-  font-weight:900;letter-spacing:.5px;text-transform:uppercase
-}
-h1{font-size:clamp(30px,3.6vw,47px);line-height:1.13;letter-spacing:-1.4px}
-h2{letter-spacing:-.5px}
-.desc{color:#58635b;font-size:15px;line-height:1.8}
-.facts{display:flex;flex-wrap:wrap;gap:10px 18px;margin:17px 0;font-size:13px;font-weight:800}
-.nutrition{
-  display:grid;grid-template-columns:repeat(4,1fr);background:white;
-  border:1px solid var(--line);border-radius:13px;padding:16px 5px;margin-top:20px
-}
-.nutrition div{text-align:center;border-right:1px solid var(--line)}
-.nutrition div:last-child{border:0}
-.nutrition strong{display:block;font-size:21px}
-.nutrition small{color:var(--muted);font-size:11px}
-.btn{
-  border:0;border-radius:10px;padding:11px 15px;font-weight:800;
-  transition:transform .15s,background .15s
-}
-.btn:hover{transform:translateY(-1px)}
-.primary{background:var(--green);color:white}
-.primary:hover{background:var(--dark)}
-.secondary{background:#f1f5f0;color:var(--green);border:1px solid #dce8dd}
-.outline{background:white;border:1px solid var(--line);color:var(--ink)}
-.btnrow{display:flex;flex-wrap:wrap;gap:9px;margin-top:17px}
-.section{margin-top:45px}
-.secthead{
-  display:flex;justify-content:space-between;align-items:end;
-  gap:15px;margin-bottom:18px
-}
-.secthead h2{margin:5px 0;font-size:27px}
-.muted{color:var(--muted)}
-.layout{
-  display:grid;grid-template-columns:minmax(0,1fr) 325px;
-  gap:24px;align-items:start
-}
-.panel{
-  background:white;border:1px solid var(--line);border-radius:16px;
-  padding:22px;box-shadow:var(--shadow);margin-bottom:20px
-}
-.panel h3{margin:0 0 12px;font-size:18px}
-.tabs{
-  display:flex;flex-wrap:wrap;gap:5px;
-  border-bottom:1px solid var(--line);margin-bottom:17px
-}
-.tab{
-  border:0;background:white;color:#59625c;font-weight:800;
-  padding:10px 13px;border-radius:9px 9px 0 0
-}
-.tab.active{background:var(--pale);color:var(--green)}
-.ingcols{display:grid;grid-template-columns:1fr 1fr;gap:24px}
-.ingredient{
-  display:flex;align-items:center;gap:9px;padding:9px 0;
-  border-bottom:1px solid #f0f1ed;font-size:13px
-}
-.ingredient input,.shopitem input,.check input{
-  accent-color:var(--green);width:17px;height:17px;flex-shrink:0
-}
-.ingredient label{flex:1}
-.ingredient .amount{white-space:nowrap;color:var(--muted)}
-.ingredient input:checked+label{text-decoration:line-through;color:#98a098}
-.step{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid #f0f1ed}
-.stepnum{
-  width:34px;height:34px;flex:0 0 34px;border-radius:50%;
-  background:var(--green);color:white;display:grid;place-items:center;font-weight:900
-}
-.step p{font-size:14px;color:#58635b;margin:4px 0}
-.tip{background:#f0f8ef;border-left:4px solid var(--green);padding:13px 15px;border-radius:8px;margin:10px 0;font-size:14px}
-.portions{display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:800}
-.portions button{width:32px;height:32px;border:0;background:var(--pale);color:var(--green);border-radius:8px;font-size:19px;font-weight:900}
-.shopitem{display:flex;gap:9px;align-items:center;padding:9px 0;border-bottom:1px solid #f0f1ed;font-size:13px}
-.shopitem label{flex:1}
-.shopitem small{white-space:nowrap;color:var(--muted)}
-.shoplist{max-height:350px;overflow:auto}
-.full{width:100%;margin-top:10px}
-.markets{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
-.markets a{text-align:center;border:1px solid var(--line);padding:10px 5px;border-radius:9px;font-size:12px;font-weight:800}
-.note{font-size:12px;color:var(--muted);line-height:1.6}
-.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
-.card{
-  overflow:hidden;background:white;border:1px solid var(--line);
-  border-radius:15px;box-shadow:var(--shadow);transition:.2s
-}
-.card:hover{transform:translateY(-3px);box-shadow:0 12px 28px #263d2a14}
-.card img{width:100%;height:180px;object-fit:cover;background:#eee}
-.cardbody{padding:15px}
-.card h3{margin:9px 0 6px;font-size:17px;line-height:1.35}
-.card p{font-size:13px;color:var(--muted);min-height:42px}
-.meta{display:flex;flex-wrap:wrap;gap:10px;font-size:12px;color:var(--muted)}
-.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
-.filter{border:1px solid var(--line);border-radius:22px;background:white;padding:8px 13px;font-size:13px;font-weight:800}
-.filter.active{background:var(--green);color:white;border-color:var(--green)}
-.toolsgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
-.toolcard{padding:20px;background:white;border:1px solid var(--line);border-radius:15px;box-shadow:var(--shadow)}
-.toolcard .emoji{font-size:28px}
-.toolcard h3{margin:8px 0}
-.toolcard p{font-size:13px;color:var(--muted)}
-.formrow{display:flex;gap:9px;flex-wrap:wrap}
-.formrow input,.formrow select,.formrow textarea{
-  min-width:0;flex:1;padding:11px;border:1px solid var(--line);
-  border-radius:9px;background:white
-}
-.formrow textarea{flex-basis:100%;min-height:90px}
-.planner{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:10px}
-.day{background:white;border:1px solid var(--line);border-radius:12px;min-height:155px;padding:10px}
-.day strong{font-size:13px;color:var(--green)}
-.day select{width:100%;margin-top:8px;padding:7px;border:1px solid var(--line);border-radius:7px;font-size:12px}
-.day small{display:block;margin-top:7px;font-size:11px;color:var(--muted)}
-.checkgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
-.check{display:flex;align-items:center;gap:8px;padding:9px 11px;border:1px solid var(--line);border-radius:9px;background:white;font-size:13px}
-.resultbox{background:#f4f8f3;border-radius:12px;padding:14px;margin-top:14px}
-.saved-list{padding-left:20px}
-.empty{grid-column:1/-1;padding:35px;background:white;border:1px solid var(--line);border-radius:14px;text-align:center}
+select:focus-visible,textarea:focus-visible{outline:2px solid var(--green);outline-offset:3px}
+.topbar{height:39px;padding:0 5%;display:flex;justify-content:space-between;
+  align-items:center;border-bottom:1px solid var(--line);font-size:10px;
+  letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+.header{display:grid;grid-template-columns:180px 1fr auto;align-items:center;
+  padding:22px 5%;gap:24px;border-bottom:1px solid var(--line)}
+.logo{font-family:Georgia,serif;font-size:24px;letter-spacing:-1px}
+.logo span{color:#8b7756}
+.nav{display:flex;gap:25px;justify-content:center;flex-wrap:wrap}
+.nav a{font-size:11px;text-transform:uppercase;letter-spacing:1.2px}
+.nav a:hover{color:#92774e}
+.header-actions{display:flex;gap:9px}
+.icon-btn,.outline-btn{border:1px solid var(--line);background:transparent;
+  padding:10px 13px;font-size:11px;letter-spacing:.5px}
+.icon-btn:hover,.outline-btn:hover{background:var(--green);color:white}
+.menu-toggle{display:none}
+main{max-width:1600px;margin:auto}
+.hero{padding:35px 5% 70px;min-height:620px;position:relative}
+.hero-top{display:flex;justify-content:space-between;align-items:end;margin-bottom:22px}
+.eyebrow{font-size:10px;text-transform:uppercase;letter-spacing:3px;color:var(--muted)}
+h1,h2,h3,p{margin-top:0}
+.hero h1{font-family:Georgia,'Times New Roman',serif;font-size:clamp(43px,6.4vw,88px);
+  line-height:.97;letter-spacing:-4px;font-weight:400;margin:15px 0 0;max-width:760px}
+.hero h1 em{color:#897b61;font-weight:400}
+.hero-layout{display:grid;grid-template-columns:1.35fr .85fr;gap:20px;align-items:stretch}
+.collage{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:220px 170px;gap:8px;position:relative}
+.photo{position:relative;overflow:hidden;background:#ded7c8}
+.photo img{height:100%;transition:transform .7s}
+.photo:hover img{transform:scale(1.04)}
+.photo:first-child{grid-row:span 2}
+.photo-label{position:absolute;bottom:12px;left:12px;color:white;
+  background:#2229;padding:7px 10px;font-size:9px;letter-spacing:1.5px;text-transform:uppercase}
+.hero-panel{background:var(--green);color:white;min-height:398px;display:flex;
+  flex-direction:column;justify-content:space-between;padding:30px}
+.hero-panel .eyebrow{color:#d7d2c3}
+.hero-panel h2{font:400 clamp(34px,4vw,53px)/1.03 Georgia,serif;letter-spacing:-1.5px}
+.hero-panel p{font-size:13px;line-height:1.8;color:#e0e3dc;max-width:310px}
+.light-link{border:0;border-bottom:1px solid #ffffff80;background:none;color:white;
+  padding:0 0 10px;align-self:flex-start;text-transform:uppercase;
+  letter-spacing:1.5px;font-size:10px}
+.hero-bottom{display:flex;justify-content:space-between;gap:20px;margin-top:18px;
+  color:var(--muted);font-size:10px;letter-spacing:1.3px;text-transform:uppercase}
+.section{padding:65px 5%;border-top:1px solid var(--line)}
+.section-heading{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:28px}
+.section-heading h2{font:400 clamp(34px,4vw,52px)/1.05 Georgia,serif;
+  letter-spacing:-1.5px;margin:8px 0 0}
+.section-heading p{font-size:12px;color:var(--muted);line-height:1.7;max-width:350px;margin-bottom:3px}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:23px}
+.filter{border:1px solid var(--line);background:transparent;padding:10px 14px;
+  font-size:10px;text-transform:uppercase;letter-spacing:1px}
+.filter.active,.filter:hover{background:var(--green);color:white;border-color:var(--green)}
+.search-row{display:flex;gap:10px;margin-bottom:20px}
+.search-row input{min-width:0;flex:1;border:1px solid var(--line);background:var(--white);
+  padding:14px 16px}
+.search-row select{border:1px solid var(--line);background:var(--white);padding:12px}
+.recipe-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:25px 17px}
+.recipe-card{background:var(--white);min-width:0;position:relative}
+.card-image{height:225px;overflow:hidden;position:relative;background:#e1dacd}
+.card-image img{height:100%;transition:transform .6s}
+.recipe-card:hover .card-image img{transform:scale(1.05)}
+.card-category{position:absolute;left:12px;top:12px;background:var(--white);
+  padding:7px 9px;font-size:9px;text-transform:uppercase;letter-spacing:1px}
+.favorite{position:absolute;right:12px;top:12px;width:35px;height:35px;border:0;
+  border-radius:50%;background:var(--white);font-size:19px}
+.favorite.saved{color:#a34838}
+.card-content{padding:17px}
+.card-content h3{font:400 24px/1.15 Georgia,serif;margin:0 0 9px}
+.card-content p{font-size:12px;color:var(--muted);line-height:1.7;min-height:40px}
+.card-meta{display:flex;gap:14px;font-size:10px;color:var(--muted);margin-bottom:16px}
+.card-open{border:0;border-bottom:1px solid var(--ink);background:none;padding:0 0 5px;
+  font-size:10px;text-transform:uppercase;letter-spacing:1.4px}
+.empty-state{grid-column:1/-1;padding:50px 20px;text-align:center;color:var(--muted)}
+.feature-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+  background:var(--line);border:1px solid var(--line);margin-top:32px}
+.feature{background:var(--paper);padding:25px}
+.feature .number{font:34px Georgia,serif;color:#938367}
+.feature h3{font:22px Georgia,serif;margin:14px 0 8px}
+.feature p{font-size:12px;line-height:1.7;color:var(--muted);margin:0}
+.tools-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.tool-card{padding:25px;background:var(--white);border:1px solid var(--line)}
+.tool-card h3{font:29px Georgia,serif;margin-bottom:8px}
+.tool-card>p{font-size:12px;color:var(--muted);line-height:1.7}
+.field{display:flex;flex-direction:column;gap:7px;margin:12px 0}
+.field label{font-size:10px;letter-spacing:1px;text-transform:uppercase}
+.field input,.field textarea,.field select{width:100%;padding:12px;border:1px solid var(--line);
+  background:#fffdf9;color:var(--ink)}
+.primary-btn{border:1px solid var(--green);background:var(--green);color:white;
+  padding:12px 17px;font-size:10px;letter-spacing:1.2px;text-transform:uppercase}
+.primary-btn:hover{background:#526b57}
+.secondary-btn{border:1px solid var(--line);background:transparent;padding:11px 15px;
+  font-size:10px;text-transform:uppercase;letter-spacing:1px}
+.list-items{padding:0;list-style:none}
+.list-items li{display:flex;align-items:center;gap:10px;padding:10px 0;
+  border-bottom:1px solid var(--line);font-size:12px}
+.list-items input{accent-color:var(--green)}
+.list-items label{flex:1}
+.remove-btn{border:0;background:none;color:#9a5d4f;font-size:17px}
+.planner-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:7px}
+.day{background:var(--white);border:1px solid var(--line);padding:12px 8px;min-height:110px}
+.day strong{display:block;font-size:10px;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+.day select{width:100%;border:0;background:transparent;font-size:11px;max-width:100%}
+.day small{display:block;color:var(--muted);font-size:10px;margin-top:8px}
+.timer-display{font:clamp(45px,7vw,75px) Georgia,serif;margin:20px 0}
+.timer-controls{display:flex;gap:8px;flex-wrap:wrap}
+.contact-layout{display:grid;grid-template-columns:.8fr 1.2fr;gap:40px}
+.contact-copy h2{font:400 45px/1.05 Georgia,serif}
+.contact-copy p{font-size:13px;line-height:1.8;color:var(--muted)}
+.notice{font-size:11px;line-height:1.7;color:var(--muted);margin-top:12px}
+.admin-box{background:#eee8dc;border:1px dashed #b5a88f;padding:22px}
+.admin-box summary{cursor:pointer;font:24px Georgia,serif}
+.admin-form{margin-top:18px}
+.site-footer{padding:30px 5%;border-top:1px solid var(--line);display:flex;
+  justify-content:space-between;gap:20px;align-items:center;font-size:10px;
+  text-transform:uppercase;letter-spacing:1px;color:var(--muted)}
+.modal{display:none;position:fixed;inset:0;background:#171914b8;z-index:100;
+  padding:20px;overflow:auto;align-items:center;justify-content:center}
+.modal.open{display:flex}
+.modal-box{width:min(760px,100%);background:var(--paper);position:relative;
+  max-height:92vh;overflow:auto}
+.modal-close{position:absolute;right:13px;top:13px;z-index:2;border:0;
+  background:var(--white);width:40px;height:40px;font-size:23px}
+.modal-image{height:280px;background:#ded7c8}
+.modal-body{padding:25px}
+.modal-body h2{font:40px Georgia,serif;margin-bottom:8px}
+.modal-body p{font-size:13px;line-height:1.8;color:var(--muted)}
+.modal-columns{display:grid;grid-template-columns:1fr 1fr;gap:25px}
+.modal-columns h3{font:24px Georgia,serif}
+.modal-columns li{font-size:12px;line-height:1.8;margin-bottom:5px}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);
+  background:var(--green);color:white;padding:13px 20px;font-size:12px;
+  z-index:200;display:none;box-shadow:var(--shadow);max-width:90vw}
+.toast.show{display:block}
 .hidden{display:none!important}
-footer{background:#123d29;color:white;padding:35px 4%}
-.footerinner{max-width:1320px;margin:auto;display:flex;justify-content:space-between;gap:25px;flex-wrap:wrap}
-footer p{font-size:13px;color:#d1e2d5}
-footer a{text-decoration:underline}
-.toast{
-  position:fixed;z-index:80;bottom:22px;left:50%;transform:translate(-50%,120px);
-  opacity:0;background:#163d2b;color:white;padding:13px 20px;border-radius:12px;
-  box-shadow:var(--shadow);transition:.25s;max-width:90%;text-align:center
+@media(max-width:900px){
+ .header{grid-template-columns:1fr auto}
+ .nav{grid-column:1/-1;order:3;justify-content:flex-start;gap:15px}
+ .hero-layout{grid-template-columns:1fr}
+ .hero-panel{min-height:300px}
+ .recipe-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .planner-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
 }
-.toast.show{transform:translate(-50%,0);opacity:1}
-.modal{
-  position:fixed;inset:0;z-index:70;background:#0c2119a8;
-  display:grid;place-items:center;padding:18px
-}
-.modalbox{background:white;border-radius:16px;padding:22px;max-width:600px;width:100%;max-height:85vh;overflow:auto}
-.modalhead{display:flex;justify-content:space-between;gap:12px;align-items:center}
-.modalhead h2{margin:0}
-.modalhead button{border:0;background:#f0f3ef;border-radius:8px;padding:7px 12px}
-.smallprint{font-size:11px;color:var(--muted)}
-@media(max-width:1000px){
-  .header{flex-wrap:wrap;gap:12px}.logo{flex:1}.search{order:3;flex-basis:100%}
-  .navlinks{gap:10px;font-size:12px}.layout{grid-template-columns:1fr}
-  .cards{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .planner{grid-template-columns:repeat(4,minmax(0,1fr))}
-  .toolsgrid{grid-template-columns:repeat(2,minmax(0,1fr))}
-}
-@media(max-width:650px){
-  main{padding:20px 4% 45px}.navlinks a:nth-child(2),.navlinks a:nth-child(3){display:none}
-  .logo{font-size:19px}.hero{grid-template-columns:1fr}
-  .heroimg img{height:280px}.hero h1{font-size:32px}
-  .nutrition strong{font-size:17px}.nutrition small{font-size:10px}
-  .panel{padding:16px}.ingcols{grid-template-columns:1fr;gap:4px}
-  .cards,.toolsgrid{grid-template-columns:1fr}.card img{height:220px}
-  .planner{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .checkgrid{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .secthead h2{font-size:22px}.cats{justify-content:flex-start}
+@media(max-width:600px){
+ .topbar{padding:0 5%;font-size:8px;letter-spacing:1px}
+ .header{padding:16px 5%;gap:12px}
+ .logo{font-size:21px}
+ .header-actions .outline-btn{padding:9px}
+ .menu-toggle{display:inline-block}
+ .nav{display:none;flex-direction:column;gap:0;border-top:1px solid var(--line);padding-top:10px}
+ .nav.open{display:flex}
+ .nav a{padding:12px 0}
+ .hero{padding-top:27px;min-height:auto}
+ .hero h1{letter-spacing:-2px}
+ .hero-top{align-items:start;flex-direction:column;gap:8px}
+ .collage{grid-template-rows:175px 125px}
+ .hero-panel{padding:24px;min-height:300px}
+ .hero-bottom{font-size:8px}
+ .section{padding-top:48px;padding-bottom:48px}
+ .section-heading{align-items:start;flex-direction:column}
+ .section-heading h2{letter-spacing:-1px}
+ .recipe-grid{gap:18px 10px}
+ .card-image{height:145px}
+ .card-content{padding:12px}
+ .card-content h3{font-size:20px}
+ .card-content p{font-size:11px;min-height:55px}
+ .card-meta{flex-wrap:wrap;gap:7px}
+ .card-category{font-size:8px;left:7px;top:7px}
+ .favorite{right:7px;top:7px;width:30px;height:30px}
+ .search-row{flex-direction:column}
+ .feature-strip,.tools-grid,.contact-layout,.modal-columns{grid-template-columns:1fr}
+ .planner-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .day{min-height:90px}
+ .site-footer{align-items:flex-start;flex-direction:column}
+ .modal-image{height:200px}
+ .modal-body{padding:18px}
+ .modal-body h2{font-size:33px}
 }
 </style>
 </head>
-
 <body>
-<header class="top">
-  <div class="header">
-    <a class="logo" href="#top">♛ <span>Recepten</span>Koning</a>
-    <div class="search">
-      <input id="search" type="search" placeholder="Zoek recepten of ingrediënten..." aria-label="Zoek recepten">
-    </div>
-    <nav class="navlinks">
-      <a href="#recepten">Recepten</a>
-      <a href="#weekplanner">Weekplanner</a>
-      <a href="#favorieten">Favorieten</a>
-      <a href="#boodschappen">Boodschappen</a>
-    </nav>
-    <button class="cart" id="openList">🛒 <span id="cartCount">0</span></button>
-  </div>
+<div class="topbar">
+  <span>ReceptenKoning · Kitchen Journal</span>
+  <span>Good food, beautifully made</span>
+</div>
 
-  <nav class="cats" aria-label="Categorieën">
-    <button class="cat active" data-cat="Alles">☷ Alles</button>
-    <button class="cat" data-cat="Ontbijt">🍳 Ontbijt</button>
-    <button class="cat" data-cat="Lunch">🥪 Lunch</button>
-    <button class="cat" data-cat="Avondeten">🍽️ Avondeten</button>
-    <button class="cat" data-cat="Bakken">🧁 Bakken</button>
-    <button class="cat" data-cat="Snacks">🥑 Snacks</button>
-    <button class="cat" data-cat="Salades">🥗 Salades</button>
-    <button class="cat" data-cat="Soepen">🍲 Soepen</button>
-    <button class="cat" data-cat="Vegetarisch">🌱 Vegetarisch</button>
+<header class="header">
+  <a class="logo" href="#home">Recepten<span>Koning.</span></a>
+  <nav class="nav" id="nav">
+    <a href="#home">Home</a>
+    <a href="#recepten">Recepten</a>
+    <a href="#planner">Weekplanner</a>
+    <a href="#tools">Keukentools</a>
+    <a href="#favorieten">Favorieten</a>
+    <a href="#contact">Contact</a>
   </nav>
+  <div class="header-actions">
+    <button class="outline-btn" onclick="scrollToSection('recepten')">Ontdek recepten ↗</button>
+    <button class="icon-btn menu-toggle" onclick="toggleMenu()" aria-label="Menu openen">☰</button>
+  </div>
 </header>
 
-<main id="top">
-  <section class="hero">
-    <div class="heroimg">
-      <img id="heroImg" src="https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=1000&q=85" alt="Een vers pastagerecht">
-      <span class="tag">👑 Recept van de dag</span>
-    </div>
+<main>
+<section class="hero" id="home">
+  <div class="hero-top">
     <div>
-      <span class="eyebrow" id="heroCat">Avondeten</span>
-      <h1 id="heroTitle">Ontdek jouw volgende favoriete gerecht</h1>
-      <p class="desc" id="heroDesc">Zoek inspiratie, ontdek nieuwe smaken en maak van koken iets leuks.</p>
-      <div class="facts">
-        <span>◷ <b id="heroTime">25</b> min.</span>
-        <span>♧ <b id="heroDiff">Makkelijk</b></span>
-        <span>♙ <b id="heroServings">2 porties</b></span>
-        <span>♨ <b id="heroKcal">520</b> kcal p.p.</span>
-      </div>
-      <div class="btnrow">
-        <button class="btn primary" id="heroOpen">Bekijk recept ↓</button>
-        <button class="btn secondary" id="heroRandom">🎲 Verras me!</button>
-        <button class="btn outline" id="heroFav">♡ Bewaar favoriet</button>
-      </div>
-      <div class="nutrition">
-        <div><strong id="nKcal">520</strong><small>Calorieën</small></div>
-        <div><strong id="nProtein">19g</strong><small>Eiwitten</small></div>
-        <div><strong id="nCarbs">72g</strong><small>Koolhydraten</small></div>
-        <div><strong id="nFat">16g</strong><small>Vetten</small></div>
-      </div>
+      <div class="eyebrow">A little inspiration for your kitchen</div>
+      <h1>Everyday food.<br><em>Extraordinary moments.</em></h1>
     </div>
-  </section>
+    <div class="eyebrow">Editie 01 / Recepten & inspiratie</div>
+  </div>
 
-  <section class="section layout" id="receptdetail">
-    <div>
-      <div class="panel">
-        <div class="tabs">
-          <button class="tab active" data-tab="ingredients">🥕 Ingrediënten</button>
-          <button class="tab" data-tab="method">👨‍🍳 Bereiding</button>
-          <button class="tab" data-tab="tips">💡 Tips</button>
-          <button class="tab" data-tab="nutrition">📊 Voeding</button>
-        </div>
-        <div id="ingredientsTab">
-          <div class="secthead">
-            <h2>Wat heb je nodig?</h2>
-            <span class="muted" id="ingServings">Voor 2 porties</span>
-          </div>
-          <p class="muted">Pas het aantal porties aan. De ingrediënten worden automatisch omgerekend.</p>
-          <div class="ingcols" id="ingredientColumns"></div>
-        </div>
-        <div id="methodTab" class="hidden">
-          <h2>Stap voor stap bereiden</h2>
-          <p class="muted">Zet de ingrediënten klaar voordat je begint.</p>
-          <div id="steps"></div>
-        </div>
-        <div id="tipsTab" class="hidden">
-          <h2>Handige tips</h2>
-          <div id="tips"></div>
-        </div>
-        <div id="nutritionTab" class="hidden">
-          <h2>Voedingswaarde</h2>
-          <p>Indicatieve waarden per portie. De werkelijke waarden kunnen verschillen.</p>
-          <div id="nutritionDetails"></div>
-        </div>
-      </div>
-
-      <div class="panel">
-        <h3>⏱️ Kookmodus en timer</h3>
-        <p class="muted">Stel een tijd in en start de timer. Laat deze pagina open terwijl je kookt.</p>
-        <div class="formrow">
-          <input type="number" id="timerMinutes" min="1" max="240" value="10" aria-label="Timer in minuten">
-          <button class="btn primary" id="startTimer">Start timer</button>
-          <button class="btn secondary" id="stopTimer">Stop</button>
-        </div>
-        <div class="resultbox">
-          <strong id="timerDisplay">10:00</strong>
-          <div class="smallprint" id="timerStatus">Timer staat klaar.</div>
-        </div>
-      </div>
+  <div class="hero-layout">
+    <div class="collage">
+      <a class="photo" href="#recepten">
+        <img src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1000&q=85" alt="Verse kleurrijke maaltijd" fetchpriority="high">
+        <span class="photo-label">Fresh & seasonal</span>
+      </a>
+      <a class="photo" href="#recepten">
+        <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=700&q=85" alt="Gezonde ingrediënten">
+        <span class="photo-label">Simple ingredients</span>
+      </a>
+      <a class="photo" href="#recepten">
+        <img src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=700&q=85" alt="Verse groenten op tafel">
+        <span class="photo-label">Made with care</span>
+      </a>
     </div>
-
-    <aside id="boodschappen">
-      <div class="panel">
-        <div class="portions">
-          <span>👥 Aantal porties</span>
-          <div>
-            <button id="minus" aria-label="Minder porties">−</button>
-            <span id="servingNum">2</span>
-            <button id="plus" aria-label="Meer porties">+</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="panel">
-        <h3>🛒 Ingrediënten kiezen</h3>
-        <p class="note">Vink aan wat je wilt kopen en voeg het toe aan je boodschappenlijst.</p>
-        <label class="shopitem">
-          <input type="checkbox" id="selectAll">
-          <span>Alles selecteren</span>
-        </label>
-        <div class="shoplist" id="shopItems"></div>
-        <button class="btn primary full" id="addSelected">✓ Voeg selectie toe</button>
-        <button class="btn secondary full" id="copySelected">Kopieer selectie</button>
-        <div class="markets">
-          <a href="https://www.ah.nl/" target="_blank" rel="noopener noreferrer">🔵 Albert Heijn ↗</a>
-          <a href="https://www.jumbo.com/" target="_blank" rel="noopener noreferrer">🟡 Jumbo ↗</a>
-        </div>
-        <p class="note">De supermarktknoppen openen hun website. Je boodschappen worden niet automatisch in een winkelmandje geplaatst.</p>
-      </div>
-    </aside>
-  </section>
-
-  <section class="section" id="recepten">
-    <div class="secthead">
-      <div>
-        <span class="eyebrow">Ontdek iets lekkers</span>
-        <h2>Alle recepten</h2>
-        <p class="muted">30 ideeën voor ontbijt, lunch, avondeten, snacks en bakken.</p>
-      </div>
-      <span class="muted" id="resultCount"></span>
-    </div>
-
-    <div class="filters">
-      <button class="filter active" data-filter="Alles">Alles</button>
-      <button class="filter" data-filter="Snel">⏱️ Tot 30 min.</button>
-      <button class="filter" data-filter="Makkelijk">👌 Makkelijk</button>
-      <button class="filter" data-filter="Vegetarisch">🌱 Vegetarisch</button>
-      <button class="filter" data-filter="Budget">€ Budget</button>
-      <button class="filter" data-filter="Bakken">🧁 Bakken</button>
-    </div>
-    <div class="cards" id="recipeCards"></div>
-  </section>
-
-  <section class="section" id="weekplanner">
-    <div class="secthead">
-      <div>
-        <span class="eyebrow">Slim vooruit plannen</span>
-        <h2>Jouw weekplanner</h2>
-        <p class="muted">Kies voor iedere dag een recept. Je planning wordt op dit apparaat bewaard.</p>
-      </div>
-      <button class="btn secondary" id="clearPlanner">Wis week</button>
-    </div>
-    <div class="planner" id="planner"></div>
-    <div class="btnrow">
-      <button class="btn primary" id="plannerShopping">Maak boodschappenlijst van mijn week</button>
-      <button class="btn secondary" id="savePlanner">Bewaar weekmenu</button>
-    </div>
-  </section>
-
-  <section class="section" id="ingredientfinder">
-    <div class="secthead">
-      <div>
-        <span class="eyebrow">Kook met wat je hebt</span>
-        <h2>Wat ligt er in jouw keuken?</h2>
-        <p class="muted">Vink ingrediënten aan en ontdek welke recepten je ermee kunt maken.</p>
-      </div>
-    </div>
-    <div class="panel">
-      <div class="checkgrid" id="pantryOptions"></div>
-      <div class="btnrow">
-        <button class="btn primary" id="findPantry">Vind mijn recepten</button>
-        <button class="btn secondary" id="clearPantry">Wis selectie</button>
-      </div>
-      <div id="pantryResults" class="resultbox hidden"></div>
-    </div>
-  </section>
-
-  <section class="section" id="favorieten">
-    <div class="secthead">
-      <div>
-        <span class="eyebrow">Jouw kookboek</span>
-        <h2>Favoriete recepten</h2>
-        <p class="muted">Bewaar recepten die je later opnieuw wilt maken.</p>
-      </div>
-    </div>
-    <div class="cards" id="favoriteCards"></div>
-  </section>
-
-  <section class="section" id="randomizer">
-    <div class="secthead">
-      <div>
-        <span class="eyebrow">Geen inspiratie?</span>
-        <h2>Verras me!</h2>
-        <p class="muted">Laat ReceptenKoning een willekeurig gerecht voor je kiezen.</p>
-      </div>
-    </div>
-    <div class="panel">
-      <div class="formrow">
-        <select id="randomCategory" aria-label="Categorie">
-          <option value="Alles">Alle categorieën</option>
-          <option>Ontbijt</option><option>Lunch</option><option>Avondeten</option>
-          <option>Bakken</option><option>Snacks</option><option>Salades</option><option>Soepen</option>
-        </select>
-        <select id="randomTime" aria-label="Maximale bereidingstijd">
-          <option value="999">Alle bereidingstijden</option>
-          <option value="20">Maximaal 20 minuten</option>
-          <option value="30">Maximaal 30 minuten</option>
-          <option value="45">Maximaal 45 minuten</option>
-        </select>
-        <button class="btn primary" id="randomPick">🎲 Kies mijn recept</button>
-      </div>
-      <div class="resultbox hidden" id="randomResult"></div>
-    </div>
-  </section>
-
-  <section class="section" id="eigenrecept">
-    <div class="secthead">
-      <div>
-        <span class="eyebrow">Jouw idee in de keuken</span>
-        <h2>Stuur een eigen recept in</h2>
-        <p class="muted">Bewaar een eigen recept op dit apparaat.</p>
-      </div>
-    </div>
-    <div class="panel">
-      <form id="recipeSubmit">
-        <div class="formrow">
-          <input id="submitName" required maxlength="100" placeholder="Naam van het recept">
-          <input id="submitAuthor" maxlength="60" placeholder="Jouw naam (optioneel)">
-        </div>
-        <div class="formrow" style="margin-top:10px">
-          <select id="submitCategory">
-            <option>Ontbijt</option><option>Lunch</option><option>Avondeten</option>
-            <option>Bakken</option><option>Snacks</option><option>Salades</option><option>Soepen</option>
-          </select>
-          <input id="submitTime" type="number" min="1" max="600" required placeholder="Bereidingstijd in minuten">
-        </div>
-        <div class="formrow" style="margin-top:10px">
-          <textarea id="submitIngredients" required maxlength="5000" placeholder="Ingrediënten, elk op een nieuwe regel"></textarea>
-          <textarea id="submitSteps" required maxlength="5000" placeholder="Bereiding, elk op een nieuwe regel"></textarea>
-        </div>
-        <button class="btn primary" type="submit" style="margin-top:12px">Bewaar mijn recept</button>
-      </form>
-      <div id="submittedRecipes"></div>
-      <p class="note">Eigen inzendingen worden alleen lokaal bewaard. Ze worden nog niet naar een beheerder gestuurd of openbaar gepubliceerd.</p>
-    </div>
-  </section>
-
-  <section class="section" id="boodschappenlijst">
-    <div class="secthead">
-      <div>
-        <span class="eyebrow">Alles bij elkaar</span>
-        <h2>Mijn boodschappenlijst</h2>
-        <p class="muted">Verzamel ingrediënten uit recepten en je weekmenu.</p>
-      </div>
-      <button class="btn secondary" id="openList2">Open volledige lijst</button>
-    </div>
-    <div class="panel">
-      <div id="groceryPreview"></div>
-      <p class="note">De boodschappenlijst wordt op dit apparaat opgeslagen. Afvinken verwijdert een product niet automatisch.</p>
-    </div>
-  </section>
-</main>
-
-<footer>
-  <div class="footerinner">
-    <div>
-      <div class="logo" style="color:#b9edc8">♛ ReceptenKoning</div>
-      <p>Elke dag iets lekkers op tafel.</p>
-    </div>
-    <div>
-      <strong>Ontdek</strong>
-      <p><a href="#recepten">Alle recepten</a> · <a href="#weekplanner">Weekplanner</a> · <a href="#boodschappenlijst">Boodschappenlijst</a></p>
-    </div>
-    <div>
-      <strong>Handig</strong>
-      <p>Recepten, inspiratie en plannen op één plek.</p>
-      <p>© <span id="year"></span> ReceptenKoning</p>
+    <div class="hero-panel">
+      <div class="eyebrow">The art of cooking</div>
+      <h2>Ontdek jouw volgende favoriete gerecht.</h2>
+      <p>Van snelle doordeweekse maaltijden tot iets bijzonders voor het weekend. Vind inspiratie, bewaar je favorieten en plan jouw week.</p>
+      <button class="light-link" onclick="scrollToSection('recepten')">Explore the collection ↗</button>
     </div>
   </div>
+  <div class="hero-bottom">
+    <span>30 zorgvuldig gekozen ideeën om te beginnen</span>
+    <span>Find it. Cook it. Love it.</span>
+  </div>
+</section>
+
+<section class="section" id="recepten">
+  <div class="section-heading">
+    <div>
+      <div class="eyebrow">The recipe collection</div>
+      <h2>Een tafel vol ideeën.</h2>
+    </div>
+    <p>Zoek iets lekkers, ontdek nieuwe smaken en open een recept voor ingrediënten en bereidingsstappen.</p>
+  </div>
+  <div class="search-row">
+    <input id="searchInput" type="search" placeholder="Zoek op gerecht of ingrediënt..." aria-label="Zoek recepten" oninput="renderRecipes()">
+    <select id="sortSelect" aria-label="Sorteer recepten" onchange="renderRecipes()">
+      <option value="default">Aanbevolen</option>
+      <option value="time">Snelste eerst</option>
+      <option value="name">Naam A–Z</option>
+    </select>
+  </div>
+  <div class="filters" id="filters"></div>
+  <div class="recipe-grid" id="recipeGrid"></div>
+</section>
+
+<section class="section" id="favorieten">
+  <div class="section-heading">
+    <div><div class="eyebrow">Your personal collection</div><h2>Jouw favorieten.</h2></div>
+    <p>Bewaar recepten met het hartje. Je favorieten blijven op dit apparaat bewaard.</p>
+  </div>
+  <div class="recipe-grid" id="favoriteGrid"></div>
+</section>
+
+<section class="section" id="planner">
+  <div class="section-heading">
+    <div><div class="eyebrow">Plan ahead</div><h2>De week op tafel.</h2></div>
+    <p>Kies per dag een recept. Gebruik je planning om de boodschappenlijst te vullen.</p>
+  </div>
+  <div class="planner-grid" id="plannerGrid"></div>
+  <div style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap">
+    <button class="primary-btn" onclick="addPlanToShopping()">Maak boodschappenlijst</button>
+    <button class="secondary-btn" onclick="clearPlanner()">Wis weekplanning</button>
+  </div>
+</section>
+
+<section class="section" id="tools">
+  <div class="section-heading">
+    <div><div class="eyebrow">Little helpers</div><h2>Handig in de keuken.</h2></div>
+    <p>Een boodschappenlijst, een kooktimer en een plek om zelf ideeën te bewaren.</p>
+  </div>
+
+  <div class="tools-grid">
+    <div class="tool-card">
+      <h3>Boodschappenlijst</h3>
+      <p>Voeg ingrediënten toe, vink ze af tijdens het winkelen en kopieer je lijst.</p>
+      <div class="field">
+        <label for="shoppingInput">Ingrediënt toevoegen</label>
+        <input id="shoppingInput" placeholder="Bijv. tomaten, pasta, basilicum" onkeydown="if(event.key==='Enter')addShoppingItem()">
+      </div>
+      <button class="primary-btn" onclick="addShoppingItem()">Toevoegen +</button>
+      <ul class="list-items" id="shoppingList"></ul>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:15px">
+        <button class="secondary-btn" onclick="copyShoppingList()">Kopieer lijst</button>
+        <button class="secondary-btn" onclick="clearShoppingList()">Wis lijst</button>
+      </div>
+      <p class="notice" id="shoppingStatus" aria-live="polite"></p>
+    </div>
+
+    <div class="tool-card">
+      <h3>Kooktimer</h3>
+      <p>Stel een timer in voor pasta, ovenhapjes of een ander gerecht. Laat deze pagina open tijdens het koken.</p>
+      <div class="field">
+        <label for="timerMinutes">Minuten</label>
+        <input type="number" id="timerMinutes" min="1" max="240" value="10">
+      </div>
+      <div class="timer-display" id="timerDisplay" aria-live="polite">10:00</div>
+      <div class="timer-controls">
+        <button class="primary-btn" id="timerStart" onclick="startTimer()">Start</button>
+        <button class="secondary-btn" onclick="pauseTimer()">Pauze</button>
+        <button class="secondary-btn" onclick="resetTimer()">Reset</button>
+      </div>
+      <p class="notice" id="timerStatus" aria-live="polite">Klaar om te beginnen.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="eigen-recept">
+  <div class="section-heading">
+    <div><div class="eyebrow">Your kitchen, your ideas</div><h2>Jouw recept toevoegen.</h2></div>
+    <p>Maak jouw eigen receptenkaart. Deze wordt lokaal opgeslagen in deze browser.</p>
+  </div>
+  <div class="tool-card">
+    <form id="recipeForm">
+      <div class="field"><label for="ownName">Naam van het recept</label><input id="ownName" required maxlength="70" placeholder="Bijv. Mijn favoriete pasta"></div>
+      <div class="field"><label for="ownCategory">Categorie</label>
+        <select id="ownCategory"><option>Vegetarisch</option><option>Avondeten</option><option>Lunch</option><option>Ontbijt</option><option>Dessert</option><option>Snacks</option></select>
+      </div>
+      <div class="field"><label for="ownTime">Bereidingstijd in minuten</label><input id="ownTime" type="number" min="1" max="600" value="25" required></div>
+      <div class="field"><label for="ownIngredients">Ingrediënten (één per regel)</label><textarea id="ownIngredients" rows="5" required placeholder="200 g pasta&#10;2 tomaten&#10;1 eetlepel olijfolie"></textarea></div>
+      <div class="field"><label for="ownSteps">Bereidingswijze</label><textarea id="ownSteps" rows="5" required placeholder="1. Bereid de ingrediënten voor.&#10;2. Kook en serveer."></textarea></div>
+      <button class="primary-btn" type="submit">Bewaar mijn recept +</button>
+    </form>
+  </div>
+</section>
+
+<section class="section" id="contact">
+  <div class="contact-layout">
+    <div class="contact-copy">
+      <div class="eyebrow">Let's talk food</div>
+      <h2>Heb je een idee of suggestie?</h2>
+      <p>Laat weten welk recept je graag op ReceptenKoning zou willen zien. Dit formulier opent je e-mailprogramma met een ingevuld bericht.</p>
+      <p class="notice">Er wordt niets automatisch verzonden. Je kunt het bericht eerst controleren en daarna zelf versturen.</p>
+    </div>
+    <form id="contactForm" class="tool-card">
+      <div class="field"><label for="contactName">Naam</label><input id="contactName" required maxlength="80" placeholder="Jouw naam"></div>
+      <div class="field"><label for="contactEmail">E-mailadres</label><input id="contactEmail" type="email" required placeholder="jij@voorbeeld.nl"></div>
+      <div class="field"><label for="contactMessage">Bericht</label><textarea id="contactMessage" rows="5" required maxlength="2000" placeholder="Ik zou graag een recept zien voor..."></textarea></div>
+      <button class="primary-btn" type="submit">Open e-mailprogramma ↗</button>
+      <p class="notice">Pas het e-mailadres in de JavaScript-code aan naar je eigen e-mailadres om berichten te ontvangen.</p>
+    </form>
+  </div>
+</section>
+
+<section class="section" id="beheer">
+  <div class="admin-box">
+    <details>
+      <summary>Beheer & instellingen</summary>
+      <div class="admin-form">
+        <p class="notice">Dit lokale beheerpaneel heeft geen wachtwoordbeveiliging. Gebruik het niet voor gevoelige informatie. Zelf toegevoegde recepten worden alleen in deze browser opgeslagen.</p>
+        <h3>Jouw recepten</h3>
+        <p id="adminStats"></p>
+        <button class="secondary-btn" onclick="exportData()">Exporteer mijn gegevens (JSON)</button>
+        <label class="secondary-btn" style="display:inline-block;cursor:pointer">
+          Importeer JSON
+          <input id="importFile" type="file" accept=".json,application/json" hidden onchange="importData(event)">
+        </label>
+        <div style="margin-top:18px">
+          <button class="secondary-btn" onclick="resetMyRecipes()">Verwijder mijn eigen recepten</button>
+          <button class="secondary-btn" onclick="resetAllLocalData()">Reset alle lokale gegevens</button>
+        </div>
+        <p class="notice">Toekomstige uitbreidingen kunnen bijvoorbeeld accounts, gedeelde recepten en premium functies bevatten. Daarvoor zijn een beveiligde backend en eventuele betaalprovider nodig.</p>
+      </div>
+    </details>
+  </div>
+</section>
+</main>
+
+<footer class="site-footer">
+  <a class="logo" href="#home">Recepten<span>Koning.</span></a>
+  <span>Cook with curiosity.</span>
+  <span>© <span id="year"></span> ReceptenKoning</span>
 </footer>
 
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
-
-<div id="listModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-  <div class="modalbox">
-    <div class="modalhead">
-      <h2 id="modalTitle">🛒 Mijn boodschappenlijst</h2>
-      <button id="closeModal">Sluiten ✕</button>
-    </div>
-    <p class="muted">Alles wat je hebt verzameld staat hier.</p>
-    <div id="combinedList"></div>
-    <div class="btnrow">
-      <button class="btn primary" id="copyCombined">Kopieer lijst</button>
-      <button class="btn secondary" id="clearCombined">Wis boodschappenlijst</button>
-    </div>
-    <p class="note">Open daarna Albert Heijn of Jumbo. De lijst wordt niet automatisch in hun winkelmandje geplaatst.</p>
-    <div class="markets">
-      <a href="https://www.ah.nl/" target="_blank" rel="noopener noreferrer">🔵 Albert Heijn ↗</a>
-      <a href="https://www.jumbo.com/" target="_blank" rel="noopener noreferrer">🟡 Jumbo ↗</a>
+<div class="modal" id="recipeModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" onclick="if(event.target===this)closeModal()">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()" aria-label="Sluiten">×</button>
+    <img class="modal-image" id="modalImage" src="" alt="">
+    <div class="modal-body">
+      <div class="eyebrow" id="modalCategory"></div>
+      <h2 id="modalTitle"></h2>
+      <p id="modalDescription"></p>
+      <div class="card-meta" id="modalMeta"></div>
+      <div class="modal-columns">
+        <div><h3>Ingrediënten</h3><ul id="modalIngredients"></ul></div>
+        <div><h3>Bereiding</h3><ol id="modalSteps"></ol></div>
+      </div>
+      <button class="primary-btn" id="modalShopping" onclick="addCurrentRecipeToShopping()">Ingrediënten toevoegen aan lijst</button>
+      <button class="secondary-btn" id="modalFavorite" onclick="toggleCurrentFavorite()">Bewaar favoriet ♡</button>
     </div>
   </div>
 </div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
 "use strict";
 
-const img = id => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=850&q=82`;
+const STORE = {
+  favorites: "rk_favorites_v1",
+  planner: "rk_planner_v1",
+  shopping: "rk_shopping_v1",
+  ownRecipes: "rk_own_recipes_v1"
+};
 
-const recipes = [
-{
-id:"pasta",title:"Romige pasta met tomaat en spinazie",cat:"Avondeten",time:25,diff:"Makkelijk",
-kcal:520,protein:19,carbs:72,fat:16,servings:2,budget:true,vegetarian:true,
-img:img("photo-1473093295043-cdd812d0e601"),
-desc:"Een snelle pasta met knoflook, tomaten en een romige saus.",
-ingredients:[["Pasta",180,"g"],["Cherrytomaten",250,"g"],["Spinazie",100,"g"],["Kookroom",100,"ml"],["Knoflook",2,"tenen"],["Geraspte kaas",30,"g"],["Olijfolie",1,"el"]],
-steps:["Kook de pasta volgens de verpakking en bewaar een beetje kookwater.","Halveer de tomaten en hak de knoflook fijn.","Bak de knoflook kort in olijfolie en voeg de tomaten toe.","Voeg de spinazie toe en laat slinken.","Roer de room erdoor en meng met de pasta.","Serveer met geraspte kaas."],
-tips:["Voeg champignons toe voor extra smaak.","Gebruik plantaardige room voor een plantaardige variant."],
-pantry:["pasta","tomaat","spinazie","knoflook","kaas"]
-},
-{
-id:"pancakes",title:"Luchtige bananenpannenkoekjes",cat:"Ontbijt",time:15,diff:"Makkelijk",
-kcal:310,protein:11,carbs:48,fat:8,servings:2,budget:true,vegetarian:true,
-img:img("photo-1528207776546-365bb710ee93"),
-desc:"Zachte pannenkoekjes met banaan, heerlijk bij het ontbijt.",
-ingredients:[["Banaan",2,"stuks"],["Eieren",2,"stuks"],["Havermout",60,"g"],["Melk",50,"ml"],["Bakpoeder",1,"tl"],["Kaneel",0.5,"tl"],["Olie",1,"el"]],
-steps:["Prak de bananen in een kom.","Klop de eieren en melk erdoor.","Meng havermout, bakpoeder en kaneel erdoor.","Verhit een beetje olie in een koekenpan.","Bak kleine pannenkoekjes aan beide kanten goudbruin.","Serveer met fruit of yoghurt."],
-tips:["Maak de pannenkoekjes klein, dan zijn ze makkelijker om te draaien.","Maal de havermout fijn voor een gladder beslag."],
-pantry:["banaan","ei","havermout","melk"]
-},
-{
-id:"soup",title:"Fluweelzachte tomatensoep",cat:"Soepen",time:30,diff:"Makkelijk",
-kcal:190,protein:5,carbs:22,fat:9,servings:4,budget:true,vegetarian:true,
-img:img("photo-1547592180-85f173990554"),
-desc:"Een verwarmende soep van tomaat, ui en kruiden.",
-ingredients:[["Tomaten",800,"g"],["Ui",1,"stuk"],["Knoflook",2,"tenen"],["Groentebouillon",700,"ml"],["Tomatenpuree",2,"el"],["Olijfolie",1,"el"],["Italiaanse kruiden",1,"tl"],["Kookroom",75,"ml"]],
-steps:["Snipper de ui en hak de knoflook.","Fruit de ui in olijfolie en voeg knoflook en tomatenpuree toe.","Voeg tomaten, bouillon en kruiden toe.","Laat 20 minuten zacht koken.","Pureer voorzichtig tot een gladde soep.","Roer de room erdoor en proef."],
-tips:["Gebruik tomaten uit blik als verse tomaten niet rijp zijn.","Pas op bij het pureren van hete soep."],
-pantry:["tomaat","ui","knoflook"]
-},
-{
-id:"salad",title:"Knapperige Griekse salade",cat:"Salades",time:15,diff:"Makkelijk",
-kcal:280,protein:9,carbs:14,fat:20,servings:2,budget:false,vegetarian:true,
-img:img("photo-1540420773420-3366772f4999"),
-desc:"Komkommer, tomaat, olijven en feta met een frisse dressing.",
-ingredients:[["Komkommer",1,"stuk"],["Tomaten",3,"stuks"],["Rode ui",0.5,"stuk"],["Feta",100,"g"],["Olijven",60,"g"],["Olijfolie",2,"el"],["Citroen",0.5,"stuk"],["Oregano",1,"tl"]],
-steps:["Was de groenten en snijd ze in grove stukken.","Snijd de ui in dunne ringen.","Meng olijfolie, citroensap en oregano.","Meng groenten en olijven in een schaal.","Verdeel de feta erover en voeg de dressing toe."],
-tips:["Voeg kikkererwten toe voor een vullende lunch.","Proef voordat je extra zout toevoegt."],
-pantry:["komkommer","tomaat","ui"]
-},
-{
-id:"cookies",title:"Klassieke chocolate-chipcookies",cat:"Bakken",time:28,diff:"Makkelijk",
-kcal:210,protein:3,carbs:28,fat:10,servings:12,budget:true,vegetarian:true,
-img:img("photo-1499636136210-6f4ee915583e"),
-desc:"Zachte koekjes met goudbruine randjes en stukjes chocolade.",
-ingredients:[["Bloem",180,"g"],["Boter",100,"g"],["Bruine suiker",100,"g"],["Witte suiker",40,"g"],["Ei",1,"stuk"],["Vanille-extract",1,"tl"],["Bakpoeder",0.5,"tl"],["Chocoladestukjes",120,"g"]],
-steps:["Verwarm de oven voor op 180 °C.","Mix boter en suiker romig.","Klop het ei en vanille erdoor.","Meng bloem en bakpoeder erdoor.","Spatel de chocolade door het deeg.","Maak hoopjes en bak 10–13 minuten."],
-tips:["Laat de koekjes na het bakken even op de bakplaat liggen.","Koel het deeg voor dikkere koekjes."],
-pantry:["bloem","boter","suiker","ei","chocolade"]
-},
-{
-id:"curry",title:"Milde kikkererwtencurry met rijst",cat:"Avondeten",time:30,diff:"Makkelijk",
-kcal:440,protein:15,carbs:66,fat:12,servings:4,budget:true,vegetarian:true,
-img:img("photo-1603894584373-5ac82b2ae398"),
-desc:"Een romige curry met kikkererwten, tomaat en kokosmelk.",
-ingredients:[["Kikkererwten",2,"blikken"],["Rijst",250,"g"],["Kokosmelk",400,"ml"],["Tomatenblokjes",400,"g"],["Ui",1,"stuk"],["Knoflook",2,"tenen"],["Kerriepoeder",2,"tl"],["Spinazie",100,"g"]],
-steps:["Kook de rijst volgens de verpakking.","Snipper de ui en hak de knoflook.","Fruit de ui en knoflook en voeg kerriepoeder toe.","Voeg tomaat, kokosmelk en kikkererwten toe.","Laat 15 minuten zacht koken.","Roer de spinazie erdoor en serveer met rijst."],
-tips:["Voeg extra groenten toe als je die in huis hebt.","Gebruik minder kerrie voor een mildere smaak."],
-pantry:["kikkererwten","rijst","tomaat","ui","knoflook"]
-},
-{
-id:"wraps",title:"Kleurrijke kipwraps",cat:"Lunch",time:20,diff:"Makkelijk",
-kcal:430,protein:29,carbs:47,fat:13,servings:2,budget:false,vegetarian:false,
-img:img("photo-1626700051175-6818013e1d4f"),
-desc:"Wraps gevuld met kip, paprika, sla en een frisse yoghurtsaus.",
-ingredients:[["Tortilla wraps",4,"stuks"],["Kipfilet",250,"g"],["Paprika",1,"stuk"],["Sla",50,"g"],["Yoghurt",100,"g"],["Citroensap",1,"el"],["Paprikapoeder",1,"tl"]],
-steps:["Snijd de kip en paprika in reepjes.","Bak de kip gaar met paprikapoeder.","Voeg de paprika toe en bak enkele minuten.","Meng yoghurt met citroensap.","Verwarm de wraps kort.","Vul met sla, kip, paprika en saus."],
-tips:["Vervang kip door bonen voor een vegetarische versie.","Vul de wraps pas vlak voor het eten."],
-pantry:["wraps","kip","paprika","sla","yoghurt"]
-},
-{
-id:"oats",title:"Havermout met appel en kaneel",cat:"Ontbijt",time:10,diff:"Makkelijk",
-kcal:330,protein:10,carbs:54,fat:8,servings:1,budget:true,vegetarian:true,
-img:img("photo-1517673132405-a56a62b18caf"),
-desc:"Een warm ontbijt met appel, kaneel en zachte havermout.",
-ingredients:[["Havermout",50,"g"],["Melk",200,"ml"],["Appel",1,"stuk"],["Kaneel",1,"tl"],["Honing",1,"tl"]],
-steps:["Doe havermout en melk in een pannetje.","Verwarm al roerend enkele minuten.","Snijd de appel in kleine blokjes.","Roer de kaneel door de havermout.","Serveer met appel en eventueel honing."],
-tips:["Gebruik water of plantaardige melk als alternatief.","Voeg rozijnen toe voor extra zoetheid."],
-pantry:["havermout","melk","appel"]
-},
-{
-id:"toast",title:"Avocadotoast met ei",cat:"Ontbijt",time:12,diff:"Makkelijk",
-kcal:350,protein:15,carbs:31,fat:19,servings:2,budget:false,vegetarian:true,
-img:img("photo-1525351484163-7529414344d8"),
-desc:"Geroosterd brood met romige avocado en een ei.",
-ingredients:[["Volkorenbrood",2,"sneetjes"],["Avocado",1,"stuk"],["Eieren",2,"stuks"],["Citroensap",1,"tl"],["Peper",1,"snuf"]],
-steps:["Rooster het brood.","Prak de avocado met citroensap en peper.","Bak of kook de eieren naar wens.","Verdeel de avocado over het brood.","Leg het ei erop en serveer direct."],
-tips:["Voeg tomaat of komkommer toe.","Was je handen na het aanraken van rauwe eieren."],
-pantry:["brood","avocado","ei"]
-},
-{
-id:"soup-lentil",title:"Stevige linzensoep met wortel",cat:"Soepen",time:35,diff:"Makkelijk",
-kcal:300,protein:16,carbs:43,fat:7,servings:4,budget:true,vegetarian:true,
-img:img("photo-1547592180-85f173990554"),
-desc:"Een stevige soep met linzen, wortel en warme specerijen.",
-ingredients:[["Linzen",250,"g"],["Wortel",2,"stuks"],["Ui",1,"stuk"],["Knoflook",2,"tenen"],["Groentebouillon",1,"liter"],["Tomatenpuree",1,"el"],["Komijn",1,"tl"]],
-steps:["Spoel de linzen af.","Snijd wortel en ui in kleine stukjes.","Fruit de ui en wortel in een pan.","Voeg knoflook, komijn en tomatenpuree toe.","Voeg bouillon en linzen toe.","Kook tot de linzen gaar zijn."],
-tips:["Controleer de kooktijd op de verpakking van de linzen.","Pureer een deel voor een dikkere soep."],
-pantry:["linzen","wortel","ui","knoflook"]
-},
-{
-id:"friedrice",title:"Gebakken rijst met ei en groenten",cat:"Avondeten",time:20,diff:"Makkelijk",
-kcal:390,protein:13,carbs:59,fat:10,servings:2,budget:true,vegetarian:true,
-img:img("photo-1512058564366-18510be2db19"),
-desc:"Een handige maaltijd met rijst, ei, wortel en doperwten.",
-ingredients:[["Gekookte rijst",350,"g"],["Eieren",2,"stuks"],["Wortel",1,"stuk"],["Doperwten",100,"g"],["Lente-ui",2,"stuks"],["Sojasaus",2,"el"],["Knoflook",1,"teen"]],
-steps:["Snijd wortel en lente-ui klein.","Bak de wortel en doperwten in een wok.","Voeg de eieren toe en roerbak tot ze gestold zijn.","Voeg de koude rijst en knoflook toe.","Roer de sojasaus erdoor en verhit alles goed.","Garneer met lente-ui."],
-tips:["Gebruik restjes rijst die snel zijn gekoeld en in de koelkast bewaard.","Verhit restjes goed door."],
-pantry:["rijst","ei","wortel","knoflook"]
-},
-{
-id:"smoothie",title:"Aardbei-banaan smoothie",cat:"Ontbijt",time:5,diff:"Makkelijk",
-kcal:220,protein:8,carbs:38,fat:4,servings:2,budget:true,vegetarian:true,
-img:img("photo-1505252585461-04db1eb84625"),
-desc:"Een frisse smoothie met fruit, yoghurt en melk.",
-ingredients:[["Aardbeien",200,"g"],["Banaan",1,"stuk"],["Yoghurt",200,"g"],["Melk",100,"ml"],["Honing",1,"tl"]],
-steps:["Was verse aardbeien.","Pel de banaan en breek in stukken.","Doe alle ingrediënten in een blender.","Mix tot een gladde smoothie.","Schenk in glazen en serveer direct."],
-tips:["Diepvriesfruit maakt de smoothie extra koud.","Proef eerst voordat je honing toevoegt."],
-pantry:["aardbei","banaan","yoghurt","melk"]
-},
-{
-id:"potatoes",title:"Krokante aardappeltjes uit de oven",cat:"Avondeten",time:40,diff:"Makkelijk",
-kcal:250,protein:5,carbs:42,fat:7,servings:4,budget:true,vegetarian:true,
-img:img("photo-1518977676601-b53f82aba655"),
-desc:"Goudbruine aardappeltjes met rozemarijn en knoflook.",
-ingredients:[["Aardappelen",800,"g"],["Olijfolie",2,"el"],["Knoflook",2,"tenen"],["Rozemarijn",1,"tl"],["Paprikapoeder",1,"tl"]],
-steps:["Verwarm de oven voor op 210 °C.","Was de aardappelen en snijd in partjes.","Meng met olie, knoflook en kruiden.","Verdeel in één laag over een bakplaat.","Rooster 30–40 minuten en keer halverwege om."],
-tips:["Laat ruimte tussen de aardappelen.","Lekker met yoghurt-knoflooksaus."],
-pantry:["aardappel","olijfolie","knoflook"]
-},
-{
-id:"sandwich",title:"Gegrilde kaas-tosti met tomaat",cat:"Lunch",time:10,diff:"Makkelijk",
-kcal:350,protein:15,carbs:36,fat:16,servings:1,budget:true,vegetarian:true,
-img:img("photo-1528735602780-2552fd46c7af"),
-desc:"Een warme krokante tosti met gesmolten kaas en tomaat.",
-ingredients:[["Brood",2,"sneetjes"],["Geraspte kaas",50,"g"],["Tomaat",1,"stuk"],["Boter",1,"tl"],["Oregano",1,"snuf"]],
-steps:["Snijd de tomaat in dunne plakjes.","Beleg brood met kaas, tomaat en oregano.","Leg de tweede boterham erop.","Bak in een tosti-ijzer of koekenpan goudbruin.","Snijd doormidden en serveer warm."],
-tips:["Voeg basilicum toe voor een pizza-tosti.","Bak niet te heet zodat de kaas goed smelt."],
-pantry:["brood","kaas","tomaat","boter"]
-},
-{
-id:"muffins",title:"Vanillemuffins met blauwe bessen",cat:"Bakken",time:30,diff:"Makkelijk",
-kcal:230,protein:4,carbs:33,fat:9,servings:10,budget:false,vegetarian:true,
-img:img("photo-1607958996333-41aef7caefaa"),
-desc:"Luchtige muffins met vanille en sappige blauwe bessen.",
-ingredients:[["Bloem",200,"g"],["Suiker",100,"g"],["Bakpoeder",2,"tl"],["Ei",1,"stuk"],["Melk",120,"ml"],["Zonnebloemolie",70,"ml"],["Blauwe bessen",125,"g"]],
-steps:["Verwarm de oven voor op 180 °C.","Meng bloem, suiker en bakpoeder.","Klop ei, melk en olie in een andere kom.","Meng natte en droge ingrediënten kort.","Spatel de blauwe bessen erdoor.","Verdeel over vormpjes en bak 18–22 minuten."],
-tips:["Roer het beslag niet te lang.","Diepvriesbessen kunnen rechtstreeks worden gebruikt."],
-pantry:["bloem","suiker","ei","melk"]
-},
-{
-id:"brownies",title:"Smeuïge chocoladebrownies",cat:"Bakken",time:40,diff:"Gemiddeld",
-kcal:260,protein:4,carbs:31,fat:14,servings:9,budget:false,vegetarian:true,
-img:img("photo-1606313564200-e75d5e30476c"),
-desc:"Rijke brownies met een zachte binnenkant en een chocoladeachtige smaak.",
-ingredients:[["Pure chocolade",180,"g"],["Boter",120,"g"],["Suiker",150,"g"],["Eieren",2,"stuks"],["Bloem",75,"g"],["Cacaopoeder",25,"g"]],
-steps:["Verwarm de oven voor op 175 °C.","Smelt chocolade en boter rustig samen.","Klop suiker en eieren door het chocolademengsel.","Spatel bloem en cacao erdoor.","Verdeel het beslag in een bakvorm.","Bak 22–28 minuten en laat afkoelen."],
-tips:["Bak iets korter voor een smeuïge binnenkant.","Laat volledig afkoelen voor je snijdt."],
-pantry:["chocolade","boter","suiker","ei","bloem"]
-},
-{
-id:"pizza",title:"Snelle groentepizza",cat:"Avondeten",time:25,diff:"Makkelijk",
-kcal:460,protein:18,carbs:58,fat:16,servings:2,budget:false,vegetarian:true,
-img:img("photo-1513104890138-7c749659a591"),
-desc:"Een knapperige pizza met tomaat, paprika, champignons en kaas.",
-ingredients:[["Pizzabodem",1,"stuk"],["Tomatensaus",100,"g"],["Geraspte kaas",100,"g"],["Paprika",1,"stuk"],["Champignons",100,"g"],["Oregano",1,"tl"]],
-steps:["Verwarm de oven volgens de verpakking van de pizzabodem.","Verdeel tomatensaus over de bodem.","Snijd de groenten in stukjes.","Verdeel groenten en kaas over de pizza.","Bestrooi met oregano.","Bak tot de bodem krokant en de kaas gesmolten is."],
-tips:["Gebruik groenten die je nog in huis hebt.","Controleer de baktijd op de verpakking."],
-pantry:["tomaat","paprika","kaas","champignons"]
-},
-{
-id:"quesadilla",title:"Kaasquesadilla met paprika",cat:"Lunch",time:15,diff:"Makkelijk",
-kcal:390,protein:16,carbs:42,fat:17,servings:2,budget:true,vegetarian:true,
-img:img("photo-1618040996337-56904b7850b9"),
-desc:"Krokante tortilla's met gesmolten kaas en paprika.",
-ingredients:[["Tortilla's",4,"stuks"],["Geraspte kaas",120,"g"],["Paprika",1,"stuk"],["Maïs",80,"g"],["Yoghurt",100,"g"]],
-steps:["Snijd de paprika klein.","Verdeel kaas, paprika en maïs over twee tortilla's.","Leg de andere tortilla's erop.","Bak in een droge koekenpan aan beide kanten goudbruin.","Snijd in punten en serveer met yoghurt."],
-tips:["Voeg bonen toe voor extra vulling.","Bak op middelhoog vuur zodat de kaas smelt."],
-pantry:["wraps","kaas","paprika"]
-},
-{
-id:"yoghurt",title:"Yoghurtbowl met fruit en granola",cat:"Ontbijt",time:5,diff:"Makkelijk",
-kcal:290,protein:12,carbs:40,fat:9,servings:1,budget:false,vegetarian:true,
-img:img("photo-1490474418585-ba9bad8fd0ea"),
-desc:"Een snelle yoghurtbowl met vers fruit en knapperige granola.",
-ingredients:[["Yoghurt",200,"g"],["Granola",40,"g"],["Aardbeien",100,"g"],["Banaan",0.5,"stuk"],["Honing",1,"tl"]],
-steps:["Schep de yoghurt in een kom.","Was en snijd het fruit.","Verdeel fruit en granola over de yoghurt.","Voeg eventueel een beetje honing toe."],
-tips:["Voeg noten of zaden toe als je die lekker vindt.","Doe de granola er pas op het laatst bij voor extra knapperigheid."],
-pantry:["yoghurt","aardbei","banaan"]
-},
-{
-id:"soup-pumpkin",title:"Romige pompoensoep",cat:"Soepen",time:35,diff:"Makkelijk",
-kcal:210,protein:5,carbs:28,fat:9,servings:4,budget:true,vegetarian:true,
-img:img("photo-1476718406336-bb5a9690ee2a"),
-desc:"Een zachte pompoensoep met ui, bouillon en kruiden.",
-ingredients:[["Pompoen",800,"g"],["Ui",1,"stuk"],["Groentebouillon",750,"ml"],["Knoflook",2,"tenen"],["Olijfolie",1,"el"],["Kookroom",75,"ml"]],
-steps:["Snijd de pompoen in blokjes en snipper de ui.","Fruit ui en knoflook in olijfolie.","Voeg pompoen en bouillon toe.","Laat 20–25 minuten koken tot de pompoen zacht is.","Pureer voorzichtig en roer de room erdoor."],
-tips:["Gebruik voorgesneden pompoen om tijd te besparen.","Pas op met hete soep tijdens het pureren."],
-pantry:["ui","knoflook","bouillon"]
-},
-{
-id:"oatcookies",title:"Havermoutkoekjes met appel",cat:"Bakken",time:25,diff:"Makkelijk",
-kcal:145,protein:3,carbs:24,fat:4,servings:10,budget:true,vegetarian:true,
-img:img("photo-1499636136210-6f4ee915583e"),
-desc:"Eenvoudige havermoutkoekjes met appel en kaneel.",
-ingredients:[["Havermout",150,"g"],["Bloem",80,"g"],["Appel",1,"stuk"],["Ei",1,"stuk"],["Boter",40,"g"],["Kaneel",1,"tl"],["Bakpoeder",1,"tl"]],
-steps:["Verwarm de oven voor op 180 °C.","Rasp de appel.","Meng havermout, bloem, kaneel en bakpoeder.","Voeg ei, boter en appel toe.","Vorm kleine koekjes op een bakplaat.","Bak 12–15 minuten."],
-tips:["Laat de koekjes afkoelen voor je ze verplaatst.","Voeg rozijnen toe voor extra smaak."],
-pantry:["havermout","appel","ei","bloem"]
-},
-{
-id:"pasta-pesto",title:"Pasta met pesto en tomaat",cat:"Avondeten",time:20,diff:"Makkelijk",
-kcal:480,protein:16,carbs:64,fat:17,servings:2,budget:false,vegetarian:true,
-img:img("photo-1473093295043-cdd812d0e601"),
-desc:"Een snelle pasta met groene pesto en sappige tomaten.",
-ingredients:[["Pasta",180,"g"],["Groene pesto",3,"el"],["Cherrytomaten",200,"g"],["Parmezaanse kaas",30,"g"],["Spinazie",50,"g"]],
-steps:["Kook de pasta volgens de verpakking.","Halveer de tomaten.","Giet de pasta af en bewaar wat kookwater.","Meng pesto, tomaten en spinazie door de warme pasta.","Voeg wat kookwater toe als de saus te dik is.","Serveer met kaas."],
-tips:["Voeg geroosterde pijnboompitten toe.","Controleer bij pesto of deze past bij jouw dieet."],
-pantry:["pasta","tomaat","spinazie","kaas"]
-},
-{
-id:"chickensalad",title:"Kipsalade met frisse dressing",cat:"Salades",time:20,diff:"Makkelijk",
-kcal:370,protein:28,carbs:20,fat:19,servings:2,budget:false,vegetarian:false,
-img:img("photo-1540420773420-3366772f4999"),
-desc:"Een frisse salade met kip, komkommer en een yoghurt-citroendressing.",
-ingredients:[["Kipfilet",250,"g"],["Sla",100,"g"],["Komkommer",1,"stuk"],["Tomaten",2,"stuks"],["Yoghurt",100,"g"],["Citroen",0.5,"stuk"]],
-steps:["Bak de kip volledig gaar en laat kort rusten.","Was en snijd de groenten.","Meng yoghurt met citroensap en peper.","Snijd de kip in reepjes.","Verdeel alles over twee borden en voeg dressing toe."],
-tips:["Laat de kip niet op de snijplank van rauwe kip liggen.","Serveer met brood als je een grotere maaltijd wilt."],
-pantry:["kip","sla","komkommer","tomaat","yoghurt"]
-},
-{
-id:"fish",title:"Ovenvis met citroen",cat:"Avondeten",time:25,diff:"Makkelijk",
-kcal:320,protein:30,carbs:8,fat:17,servings:2,budget:false,vegetarian:false,
-img:img("photo-1519708227418-c8fd9a32b7a2"),
-desc:"Malse vis uit de oven met citroen en kruiden.",
-ingredients:[["Witte visfilet",300,"g"],["Citroen",1,"stuk"],["Olijfolie",1,"el"],["Knoflook",1,"teen"],["Peterselie",1,"el"]],
-steps:["Verwarm de oven voor op 190 °C.","Leg de vis in een ovenschaal.","Meng olie, knoflook, citroensap en kruiden.","Verdeel de dressing over de vis.","Bak tot de vis gaar is en gemakkelijk uit elkaar valt."],
-tips:["De benodigde baktijd hangt af van de dikte van de vis.","Serveer met aardappelen of groenten."],
-pantry:["citroen","knoflook"]
-},
-{
-id:"couscous",title:"Couscous met geroosterde groenten",cat:"Avondeten",time:25,diff:"Makkelijk",
-kcal:390,protein:12,carbs:62,fat:10,servings:2,budget:true,vegetarian:true,
-img:img("photo-1512621776951-a57141f2eefd"),
-desc:"Luchtige couscous met paprika, courgette en een frisse dressing.",
-ingredients:[["Couscous",160,"g"],["Paprika",1,"stuk"],["Courgette",1,"stuk"],["Groentebouillon",180,"ml"],["Olijfolie",1,"el"],["Citroensap",1,"el"]],
-steps:["Verwarm de oven voor op 200 °C.","Snijd de groenten en meng met olie.","Rooster de groenten tot ze zacht en lichtbruin zijn.","Giet hete bouillon over de couscous en dek af.","Maak de couscous los met een vork.","Meng met groenten en citroensap."],
-tips:["Voeg kikkererwten toe voor extra vulling.","Gebruik kruiden zoals komijn of paprikapoeder."],
-pantry:["paprika","courgette","citroen"]
-},
-{
-id:"banana-bread",title:"Bananenbrood",cat:"Bakken",time:55,diff:"Gemiddeld",
-kcal:230,protein:5,carbs:38,fat:7,servings:10,budget:true,vegetarian:true,
-img:img("photo-1608198093002-ad4e005484df"),
-desc:"Een zacht baksel om rijpe bananen op te maken.",
-ingredients:[["Rijpe bananen",3,"stuks"],["Bloem",200,"g"],["Eieren",2,"stuks"],["Suiker",70,"g"],["Bakpoeder",2,"tl"],["Kaneel",1,"tl"]],
-steps:["Verwarm de oven voor op 175 °C.","Prak de bananen.","Meng de eieren en suiker erdoor.","Voeg bloem, bakpoeder en kaneel toe.","Giet in een ingevette cakevorm.","Bak ongeveer 40–50 minuten en controleer met een prikker."],
-tips:["Laat volledig afkoelen voordat je het snijdt.","Voeg noten toe als je dat lekker vindt."],
-pantry:["banaan","bloem","ei","suiker"]
-},
-{
-id:"falafel",title:"Falafelwrap met yoghurtsaus",cat:"Lunch",time:20,diff:"Makkelijk",
-kcal:410,protein:14,carbs:54,fat:15,servings:2,budget:true,vegetarian:true,
-img:img("photo-1626700051175-6818013e1d4f"),
-desc:"Een vegetarische wrap met falafel, knapperige groenten en yoghurtsaus.",
-ingredients:[["Falafel",200,"g"],["Wraps",4,"stuks"],["Komkommer",0.5,"stuk"],["Tomaat",2,"stuks"],["Yoghurt",100,"g"],["Sla",50,"g"]],
-steps:["Bereid de falafel volgens de verpakking.","Snijd komkommer en tomaat.","Meng yoghurt met peper en eventueel citroensap.","Verwarm de wraps kort.","Vul met sla, groenten, falafel en saus."],
-tips:["Voeg rode kool toe voor extra crunch.","Controleer de aanwijzingen op de falafelverpakking."],
-pantry:["wraps","komkommer","tomaat","yoghurt","sla"]
-},
-{
-id:"egg-salad",title:"Eiersalade voor op brood",cat:"Lunch",time:15,diff:"Makkelijk",
-kcal:280,protein:13,carbs:25,fat:14,servings:2,budget:true,vegetarian:true,
-img:img("photo-1525351484163-7529414344d8"),
-desc:"Een eenvoudige eiersalade met yoghurt, mosterd en bieslook.",
-ingredients:[["Eieren",3,"stuks"],["Yoghurt",2,"el"],["Mosterd",1,"tl"],["Bieslook",1,"el"],["Brood",4,"sneetjes"]],
-steps:["Kook de eieren hard en laat afkoelen.","Pel de eieren en snijd ze klein.","Meng met yoghurt, mosterd en bieslook.","Breng op smaak met peper.","Serveer op brood."],
-tips:["Bewaar afgedekt in de koelkast.","Gebruik de salade bij voorkeur binnen twee dagen."],
-pantry:["ei","yoghurt","brood"]
-},
-{
-id:"fruit-salad",title:"Frisse fruitsalade",cat:"Snacks",time:10,diff:"Makkelijk",
-kcal:150,protein:2,carbs:35,fat:1,servings:2,budget:true,vegetarian:true,
-img:img("photo-1490474418585-ba9bad8fd0ea"),
-desc:"Een kleurrijke kom fruit met een klein beetje citroensap.",
-ingredients:[["Appel",1,"stuk"],["Banaan",1,"stuk"],["Aardbeien",150,"g"],["Druiven",100,"g"],["Citroensap",1,"tl"]],
-steps:["Was het fruit goed.","Snijd appel, banaan en aardbeien in stukjes.","Halveer de druiven.","Meng het fruit in een schaal.","Voeg een klein beetje citroensap toe."],
-tips:["Gebruik fruit dat je al in huis hebt.","Bewaar restjes afgedekt in de koelkast."],
-pantry:["appel","banaan","aardbei"]
-},
-{
-id:"guacamole",title:"Guacamole met knapperige groenten",cat:"Snacks",time:10,diff:"Makkelijk",
-kcal:210,protein:3,carbs:12,fat:18,servings:2,budget:false,vegetarian:true,
-img:img("photo-1547592180-85f173990554"),
-desc:"Een frisse avocadodip met limoen en tomaat.",
-ingredients:[["Avocado",2,"stuks"],["Tomaat",1,"stuk"],["Limoen",1,"stuk"],["Rode ui",0.25,"stuk"],["Peper",1,"snuf"]],
-steps:["Prak de avocado in een kom.","Snijd tomaat en ui heel klein.","Meng met de avocado.","Voeg limoensap en peper toe.","Serveer met rauwkost of tortilla's."],
-tips:["Limoensap helpt de dip langer fris te houden.","Maak de dip vlak voor het serveren."],
-pantry:["avocado","tomaat","ui"]
-},
-{
-id:"choco-milkshake",title:"Chocolademilkshake",cat:"Snacks",time:5,diff:"Makkelijk",
-kcal:290,protein:9,carbs:40,fat:10,servings:2,budget:false,vegetarian:true,
-img:img("photo-1572490122747-3968b75cc699"),
-desc:"Een romige koude chocoladedrank als zoete traktatie.",
-ingredients:[["Melk",300,"ml"],["Vanille-ijs",3,"bollen"],["Cacaopoeder",2,"el"],["Banaan",0.5,"stuk"]],
-steps:["Doe melk, ijs, cacao en banaan in een blender.","Mix tot alles glad is.","Schenk in glazen.","Serveer direct."],
-tips:["Voeg meer melk toe voor een dunnere shake.","Gebruik een blender volgens de veiligheidsinstructies."],
-pantry:["melk","banaan"]
-},
-{
-id:"lemon-cake",title:"Citroencake",cat:"Bakken",time:50,diff:"Gemiddeld",
-kcal:250,protein:4,carbs:36,fat:10,servings:10,budget:false,vegetarian:true,
-img:img("photo-1586985289688-ca3cf47d3e6e"),
-desc:"Een zachte cake met frisse citroensmaak.",
-ingredients:[["Bloem",200,"g"],["Boter",150,"g"],["Suiker",150,"g"],["Eieren",3,"stuks"],["Citroen",1,"stuk"],["Bakpoeder",1,"tl"]],
-steps:["Verwarm de oven voor op 175 °C.","Mix boter en suiker romig.","Klop de eieren er één voor één door.","Voeg bloem en bakpoeder toe.","Meng citroenrasp en een beetje citroensap erdoor.","Bak in een cakevorm tot de cake gaar is."],
-tips:["Controleer met een prikker of de cake gaar is.","Laat afkoelen voordat je de cake aansnijdt."],
-pantry:["bloem","boter","suiker","ei","citroen"]
-},
-{
-id:"tomato-bruschetta",title:"Bruschetta met tomaat",cat:"Snacks",time:15,diff:"Makkelijk",
-kcal:190,protein:5,carbs:28,fat:7,servings:4,budget:true,vegetarian:true,
-img:img("photo-1572695157366-5e585ab2b69f"),
-desc:"Geroosterd brood met tomaat, knoflook en olijfolie.",
-ingredients:[["Stokbrood",1,"stuk"],["Tomaten",3,"stuks"],["Knoflook",1,"teen"],["Olijfolie",2,"el"],["Basilicum",1,"handje"]],
-steps:["Snijd het brood in plakken.","Rooster de plakken kort.","Snijd tomaten klein.","Meng tomaat met olijfolie en basilicum.","Wrijf het brood voorzichtig met knoflook.","Verdeel de tomaat over het brood."],
-tips:["Maak het brood vlak voor het eten klaar.","Gebruik rijpe tomaten voor de meeste smaak."],
-pantry:["brood","tomaat","knoflook"]
-},
-{
-id:"chickpea-salad",title:"Kikkererwtensalade met komkommer",cat:"Salades",time:12,diff:"Makkelijk",
-kcal:320,protein:12,carbs:39,fat:12,servings:2,budget:true,vegetarian:true,
-img:img("photo-1512621776951-a57141f2eefd"),
-desc:"Een frisse salade met kikkererwten, komkommer en citroendressing.",
-ingredients:[["Kikkererwten",1,"blik"],["Komkommer",1,"stuk"],["Tomaten",2,"stuks"],["Citroen",0.5,"stuk"],["Olijfolie",1,"el"],["Peterselie",1,"el"]],
-steps:["Spoel de kikkererwten af en laat uitlekken.","Snijd komkommer en tomaten.","Meng citroensap met olijfolie.","Doe alles in een schaal.","Meng de dressing erdoor en voeg peterselie toe."],
-tips:["Voeg feta toe als je dat lekker vindt.","Ook geschikt als lunch om mee te nemen."],
-pantry:["kikkererwten","komkommer","tomaat","citroen"]
-},
-{
-id:"mushroom-pasta",title:"Pasta met champignons",cat:"Avondeten",time:25,diff:"Makkelijk",
-kcal:490,protein:17,carbs:67,fat:16,servings:2,budget:true,vegetarian:true,
-img:img("photo-1473093295043-cdd812d0e601"),
-desc:"Een romige pastamaaltijd met gebakken champignons en knoflook.",
-ingredients:[["Pasta",180,"g"],["Champignons",250,"g"],["Knoflook",2,"tenen"],["Kookroom",100,"ml"],["Geraspte kaas",30,"g"],["Olijfolie",1,"el"]],
-steps:["Kook de pasta volgens de verpakking.","Snijd de champignons in plakjes.","Bak de champignons in olie tot ze goudbruin zijn.","Voeg knoflook toe en bak kort.","Roer de room erdoor.","Meng met de pasta en serveer met kaas."],
-tips:["Bak de champignons in porties voor een mooi bruin resultaat.","Voeg peterselie toe voor extra smaak."],
-pantry:["pasta","champignons","knoflook","kaas"]
-},
-{
-id:"rice-pudding",title:"Warme rijstepap met kaneel",cat:"Ontbijt",time:25,diff:"Makkelijk",
-kcal:300,protein:9,carbs:53,fat:6,servings:2,budget:true,vegetarian:true,
-img:img("photo-1517673132405-a56a62b18caf"),
-desc:"Een warm en romig ontbijt met rijst, melk en kaneel.",
-ingredients:[["Dessert- of paprijst",100,"g"],["Melk",500,"ml"],["Kaneel",1,"tl"],["Suiker",1,"el"]],
-steps:["Doe rijst en melk in een pan.","Breng rustig aan de kook terwijl je roert.","Laat op laag vuur zacht koken volgens de rijstverpakking.","Roer regelmatig zodat de pap niet aanbrandt.","Voeg kaneel en eventueel suiker toe."],
-tips:["Blijf bij de pan en roer regelmatig.","Voeg een beetje melk toe als de pap te dik wordt."],
-pantry:["rijst","melk","suiker"]
-},
-{
-id:"bean-chili",title:"Milde bonenchili",cat:"Avondeten",time:30,diff:"Makkelijk",
-kcal:400,protein:17,carbs:61,fat:9,servings:4,budget:true,vegetarian:true,
-img:img("photo-1603894584373-5ac82b2ae398"),
-desc:"Een verwarmende bonenschotel met tomaat en paprika.",
-ingredients:[["Kidneybonen",1,"blik"],["Zwarte bonen",1,"blik"],["Tomatenblokjes",400,"g"],["Paprika",1,"stuk"],["Ui",1,"stuk"],["Kruidenmix",2,"tl"],["Rijst",200,"g"]],
-steps:["Kook de rijst.","Snipper de ui en snijd de paprika.","Bak de ui en paprika enkele minuten.","Voeg bonen, tomaat en kruiden toe.","Laat 15–20 minuten zacht koken.","Serveer met rijst."],
-tips:["Spoel bonen uit blik af.","Voeg maïs toe voor extra kleur."],
-pantry:["bonen","tomaat","paprika","ui","rijst"]
-},
-{
-id:"pancakes-apple",title:"Appelpannenkoeken",cat:"Ontbijt",time:20,diff:"Makkelijk",
-kcal:350,protein:11,carbs:51,fat:10,servings:2,budget:true,vegetarian:true,
-img:img("photo-1528207776546-365bb710ee93"),
-desc:"Pannenkoeken met kleine stukjes appel en een vleugje kaneel.",
-ingredients:[["Bloem",120,"g"],["Melk",250,"ml"],["Ei",1,"stuk"],["Appel",1,"stuk"],["Kaneel",1,"tl"],["Olie",1,"el"]],
-steps:["Klop bloem, melk en ei tot een glad beslag.","Snijd de appel in kleine stukjes.","Meng appel en kaneel door het beslag.","Verhit wat olie in een pan.","Bak dunne pannenkoeken aan beide kanten gaar."],
-tips:["Gebruik een antiaanbakpan.","Serveer met yoghurt of wat fruit."],
-pantry:["bloem","melk","ei","appel"]
-},
-{
-id:"vegetable-soup",title:"Groentesoep met kleine pasta",cat:"Soepen",time:30,diff:"Makkelijk",
-kcal:220,protein:7,carbs:34,fat:5,servings:4,budget:true,vegetarian:true,
-img:img("photo-1547592180-85f173990554"),
-desc:"Een eenvoudige soep met bouillon, wortel, prei en kleine pasta.",
-ingredients:[["Groentebouillon",1,"liter"],["Wortel",2,"stuks"],["Prei",1,"stuk"],["Kleine pasta",100,"g"],["Olijfolie",1,"el"]],
-steps:["Was de groenten en snijd ze klein.","Bak de groenten kort in olie.","Voeg bouillon toe en breng aan de kook.","Voeg de pasta toe.","Kook tot groenten en pasta gaar zijn.","Proef en breng op smaak."],
-tips:["Gebruik diepvriesgroenten als je snel klaar wilt zijn.","Volg de kooktijd van de pasta op de verpakking."],
-pantry:["wortel","ui"]
-},
-{
-id:"stuffed-peppers",title:"Gevulde paprika met rijst",cat:"Avondeten",time:40,diff:"Gemiddeld",
-kcal:360,protein:12,carbs:55,fat:10,servings:2,budget:true,vegetarian:true,
-img:img("photo-1512621776951-a57141f2eefd"),
-desc:"Paprika uit de oven gevuld met rijst, tomaat en kruiden.",
-ingredients:[["Paprika",2,"stuks"],["Gekookte rijst",200,"g"],["Tomatenblokjes",200,"g"],["Ui",1,"stuk"],["Geraspte kaas",50,"g"],["Italiaanse kruiden",1,"tl"]],
-steps:["Verwarm de oven voor op 190 °C.","Snijd de paprika's doormidden en verwijder de zaadlijsten.","Meng rijst, tomaat, fijngesneden ui en kruiden.","Vul de paprikahelften met het mengsel.","Strooi kaas erover en bak tot de paprika zacht is."],
-tips:["Gebruik restjes rijst die veilig gekoeld bewaard zijn.","Pas de baktijd aan de grootte van de paprika's aan."],
-pantry:["paprika","rijst","tomaat","ui","kaas"]
-},
-{
-id:"apple-yoghurt",title:"Appel met yoghurt en kaneel",cat:"Snacks",time:5,diff:"Makkelijk",
-kcal:180,protein:7,carbs:30,fat:3,servings:1,budget:true,vegetarian:true,
-img:img("photo-1490474418585-ba9bad8fd0ea"),
-desc:"Een eenvoudig tussendoortje met appel, yoghurt en kaneel.",
-ingredients:[["Appel",1,"stuk"],["Yoghurt",150,"g"],["Kaneel",0.5,"tl"],["Granola",20,"g"]],
-steps:["Was en snijd de appel.","Schep yoghurt in een kom.","Verdeel appel en granola erover.","Bestrooi met kaneel."],
-tips:["Gebruik een appelsoort die je lekker vindt.","Voeg de granola pas op het laatst toe."],
-pantry:["appel","yoghurt"]
-},
-{
-id:"garlic-bread",title:"Zelfgemaakt knoflookbrood",cat:"Bakken",time:15,diff:"Makkelijk",
-kcal:220,protein:5,carbs:30,fat:9,servings:4,budget:true,vegetarian:true,
-img:img("photo-1573140247632-f8fd74997d5c"),
-desc:"Krokant brood met boter, knoflook en kruiden.",
-ingredients:[["Stokbrood",1,"stuk"],["Boter",50,"g"],["Knoflook",2,"tenen"],["Peterselie",1,"el"]],
-steps:["Verwarm de oven voor op 190 °C.","Meng zachte boter met fijngehakte knoflook en peterselie.","Snijd het brood in plakken zonder helemaal door te snijden.","Verdeel de kruidenboter over het brood.","Bak 8–10 minuten tot het brood warm en krokant is."],
-tips:["Gebruik zachte boter zodat je makkelijk kunt mengen.","Let op: brood en boter zijn heet uit de oven."],
-pantry:["brood","boter","knoflook"]
-},
-{
-id:"chocolate-pudding",title:"Snelle chocolademousse",cat:"Bakken",time:20,diff:"Gemiddeld",
-kcal:300,protein:5,carbs:24,fat:21,servings:4,budget:false,vegetarian:true,
-img:img("photo-1578985545062-69928b1d9587"),
-desc:"Een romig chocoladedessert voor een speciale maaltijd.",
-ingredients:[["Pure chocolade",150,"g"],["Slagroom",250,"ml"],["Suiker",1,"el"]],
-steps:["Smelt de chocolade rustig en laat iets afkoelen.","Klop de slagroom met suiker lobbig.","Spatel de afgekoelde chocolade voorzichtig door de room.","Verdeel over glaasjes.","Laat minstens een uur opstijven in de koelkast."],
-tips:["Gebruik geen hete chocolade bij de slagroom.","Bewaar het dessert gekoeld."],
-pantry:["chocolade","suiker"]
-},
-{
-id:"tomato-eggs",title:"Eieren in tomatensaus",cat:"Lunch",time:20,diff:"Makkelijk",
-kcal:270,protein:16,carbs:20,fat:13,servings:2,budget:true,vegetarian:true,
-img:img("photo-1525351484163-7529414344d8"),
-desc:"Eieren die zacht garen in een kruidige tomatensaus.",
-ingredients:[["Eieren",4,"stuks"],["Tomatenblokjes",400,"g"],["Ui",1,"stuk"],["Knoflook",1,"teen"],["Paprikapoeder",1,"tl"],["Olijfolie",1,"el"]],
-steps:["Snipper de ui en hak de knoflook.","Bak ui en knoflook in olie.","Voeg tomaten en paprikapoeder toe en laat even pruttelen.","Maak kuiltjes in de saus en breek de eieren erin.","Dek af en laat garen tot het eiwit gestold is."],
-tips:["Serveer met brood.","Laat de eieren goed garen voordat je ze eet."],
-pantry:["ei","tomaat","ui","knoflook"]
-},
-{
-id:"roasted-carrots",title:"Geroosterde wortels met kruiden",cat:"Snacks",time:30,diff:"Makkelijk",
-kcal:160,protein:3,carbs:25,fat:6,servings:3,budget:true,vegetarian:true,
-img:img("photo-1512621776951-a57141f2eefd"),
-desc:"Zoete geroosterde wortels met olijfolie en kruiden.",
-ingredients:[["Wortel",500,"g"],["Olijfolie",1,"el"],["Paprikapoeder",1,"tl"],["Komijn",0.5,"tl"]],
-steps:["Verwarm de oven voor op 200 °C.","Schil of was de wortels en snijd ze in repen.","Meng met olie en kruiden.","Verdeel over een bakplaat.","Rooster 20–25 minuten tot ze zacht en lichtbruin zijn."],
-tips:["Snijd de wortels ongeveer even groot.","Serveer met yoghurtdip."],
-pantry:["wortel","olijfolie"]
-}
+const categories = ["Alles","Avondeten","Lunch","Ontbijt","Vegetarisch","Dessert","Snacks"];
+
+const photos = {
+  pasta:"https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=850&q=80",
+  salad:"https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=850&q=80",
+  soup:"https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=850&q=80",
+  breakfast:"https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=850&q=80",
+  dessert:"https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=850&q=80",
+  vegetables:"https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=850&q=80",
+  pizza:"https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=850&q=80",
+  rice:"https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=850&q=80",
+  bread:"https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=850&q=80",
+  default:"https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=850&q=80"
+};
+
+const starterRecipes = [
+{id:"r01",name:"Romige tomatenpasta",category:"Avondeten",time:25,servings:2,level:"Makkelijk",image:photos.pasta,description:"Een romige pastamaaltijd met tomaat, knoflook en verse kruiden.",ingredients:["200 g pasta","250 g cherrytomaten","1 teen knoflook","100 ml kookroom","1 el olijfolie","Basilicum","Peper en zout"],steps:["Kook de pasta volgens de verpakking.","Bak knoflook en tomaten in olijfolie.","Voeg de room toe en laat kort pruttelen.","Meng de pasta door de saus en maak af met basilicum."]},
+{id:"r02",name:"Kleurrijke couscoussalade",category:"Lunch",time:15,servings:2,level:"Makkelijk",image:photos.salad,description:"Frisse couscous met knapperige groenten en citroendressing.",ingredients:["150 g couscous","1 komkommer","2 tomaten","1 citroen","2 el olijfolie","Peterselie"],steps:["Bereid de couscous volgens de verpakking.","Snijd de groenten klein.","Meng citroensap met olijfolie.","Schep alles door elkaar en voeg peterselie toe."]},
+{id:"r03",name:"Groene groentesoep",category:"Vegetarisch",time:30,servings:4,level:"Makkelijk",image:photos.soup,description:"Een zachte soep met groene groenten en een frisse kruidensmaak.",ingredients:["1 courgette","150 g spinazie","1 ui","750 ml groentebouillon","1 el olijfolie","Peper"],steps:["Snipper de ui en snijd de courgette.","Fruit de ui in olijfolie.","Voeg courgette en bouillon toe en kook 15 minuten.","Voeg spinazie toe, pureer en breng op smaak."]},
+{id:"r04",name:"Overnight oats",category:"Ontbijt",time:5,servings:1,level:"Makkelijk",image:photos.breakfast,description:"Een makkelijk ontbijt dat je de avond ervoor klaarmaakt.",ingredients:["50 g havermout","150 ml melk of plantaardige drink","2 el yoghurt","1 banaan","Kaneel"],steps:["Meng havermout, melk en yoghurt.","Zet afgedekt een nacht in de koelkast.","Voeg banaan en kaneel toe voor het serveren."]},
+{id:"r05",name:"Yoghurt met fruit",category:"Ontbijt",time:5,servings:1,level:"Makkelijk",image:photos.breakfast,description:"Een frisse kom yoghurt met fruit en een beetje crunch.",ingredients:["200 g yoghurt","1 handje aardbeien","1 banaan","2 el granola"],steps:["Schep de yoghurt in een kom.","Snijd het fruit.","Verdeel fruit en granola over de yoghurt."]},
+{id:"r06",name:"Margherita pizza",category:"Avondeten",time:30,servings:2,level:"Gemiddeld",image:photos.pizza,description:"Een klassieke pizza met tomaat, mozzarella en basilicum.",ingredients:["1 pizzabodem","100 g tomatensaus","125 g mozzarella","Basilicum","1 tl olijfolie"],steps:["Verwarm de oven volgens de verpakking.","Verdeel tomatensaus over de bodem.","Voeg mozzarella toe.","Bak goudbruin en werk af met basilicum."]},
+{id:"r07",name:"Gebakken rijst met ei",category:"Avondeten",time:20,servings:2,level:"Makkelijk",image:photos.rice,description:"Snelle gebakken rijst met groenten en ei.",ingredients:["300 g gekookte rijst","2 eieren","150 g doperwten en wortel","2 el sojasaus","1 el olie"],steps:["Verhit olie in een ruime pan.","Bak de groenten enkele minuten.","Voeg rijst toe en bak al omscheppend.","Bak het ei mee en voeg sojasaus toe."]},
+{id:"r08",name:"Bananenpannenkoeken",category:"Ontbijt",time:15,servings:2,level:"Makkelijk",image:photos.breakfast,description:"Luchtige pannenkoekjes met banaan voor een rustig ontbijt.",ingredients:["1 rijpe banaan","2 eieren","60 g bloem","1 tl bakpoeder","Olie om te bakken"],steps:["Prak de banaan en meng met de eieren.","Voeg bloem en bakpoeder toe.","Bak kleine pannenkoekjes in een ingevette pan.","Keer om zodra de bovenkant steviger wordt."]},
+{id:"r09",name:"Capresesalade",category:"Lunch",time:10,servings:2,level:"Makkelijk",image:photos.salad,description:"Tomaat, mozzarella en basilicum met een eenvoudige dressing.",ingredients:["3 tomaten","125 g mozzarella","Basilicum","1 el olijfolie","Balsamico","Peper"],steps:["Snijd tomaat en mozzarella in plakjes.","Leg ze om en om op een schaal.","Voeg basilicum, olie en balsamico toe."]},
+{id:"r10",name:"Hartige groentewrap",category:"Lunch",time:15,servings:2,level:"Makkelijk",image:photos.vegetables,description:"Een wrap met knapperige groenten en romige hummus.",ingredients:["2 wraps","4 el hummus","1 paprika","1/2 komkommer","Handje sla"],steps:["Snijd de groenten in dunne reepjes.","Besmeer de wraps met hummus.","Verdeel groenten en sla.","Rol stevig op en snijd doormidden."]},
+{id:"r11",name:"Pasta pesto",category:"Avondeten",time:20,servings:2,level:"Makkelijk",image:photos.pasta,description:"Een snelle pasta met pesto en tomaatjes.",ingredients:["200 g pasta","3 el groene pesto","150 g cherrytomaten","30 g geraspte kaas"],steps:["Kook de pasta.","Halveer de tomaten.","Meng warme pasta met pesto.","Voeg tomaten en kaas toe."]},
+{id:"r12",name:"Geroosterde aardappels",category:"Vegetarisch",time:40,servings:3,level:"Makkelijk",image:photos.vegetables,description:"Krokante aardappels met rozemarijn en knoflook.",ingredients:["600 g aardappels","2 el olijfolie","1 teen knoflook","Rozemarijn","Peper en zout"],steps:["Verwarm de oven op 200 °C.","Snijd aardappels in stukken.","Meng met olie, knoflook en kruiden.","Rooster ongeveer 30 minuten en schep halverwege om."]},
+{id:"r13",name:"Chocolademousse",category:"Dessert",time:20,servings:4,level:"Gemiddeld",image:photos.dessert,description:"Een luchtig chocolade-dessert voor een speciale avond.",ingredients:["150 g pure chocolade","3 eieren","1 el suiker"],steps:["Smelt de chocolade voorzichtig en laat iets afkoelen.","Splits de eieren.","Meng de dooiers met de chocolade.","Klop het eiwit stijf en spatel er voorzichtig door.","Laat enkele uren opstijven in de koelkast. Gebruik verse eieren en bewaar gekoeld."]},
+{id:"r14",name:"Appel-kaneelhavermout",category:"Ontbijt",time:10,servings:1,level:"Makkelijk",image:photos.breakfast,description:"Warme havermout met appel en kaneel.",ingredients:["50 g havermout","200 ml melk","1 appel","1/2 tl kaneel"],steps:["Breng havermout en melk rustig aan de kook.","Snijd de appel in blokjes.","Laat enkele minuten zacht koken.","Serveer met appel en kaneel."]},
+{id:"r15",name:"Pita met falafel",category:"Lunch",time:20,servings:2,level:"Makkelijk",image:photos.vegetables,description:"Pita gevuld met falafel, sla en frisse yoghurtsaus.",ingredients:["2 pitabroodjes","6 falafelballetjes","Sla","1 tomaat","100 g yoghurt","Citroensap"],steps:["Bereid de falafel volgens de verpakking.","Verwarm de pitabroodjes.","Meng yoghurt met citroensap.","Vul de pita met falafel, sla, tomaat en saus."]},
+{id:"r16",name:"Courgette uit de oven",category:"Vegetarisch",time:30,servings:2,level:"Makkelijk",image:photos.vegetables,description:"Courgette met kruiden en een goudbruin kaaskorstje.",ingredients:["2 courgettes","50 g geraspte kaas","1 el olijfolie","Italiaanse kruiden"],steps:["Verwarm de oven op 200 °C.","Halveer de courgettes in de lengte.","Besprenkel met olie en kruiden.","Bestrooi met kaas en bak gaar."]},
+{id:"r17",name:"Huisgemaakte guacamole",category:"Snacks",time:10,servings:4,level:"Makkelijk",image:photos.salad,description:"Een romige avocadodip met limoen en tomaat.",ingredients:["2 rijpe avocado's","1 tomaat","1 limoen","1/4 rode ui","Peper en zout"],steps:["Prak de avocado's grof.","Snijd tomaat en ui fijn.","Meng alles met limoensap.","Breng op smaak en serveer direct."]},
+{id:"r18",name:"Bessen-smoothie",category:"Ontbijt",time:5,servings:1,level:"Makkelijk",image:photos.breakfast,description:"Een fruitige smoothie voor een frisse start.",ingredients:["150 g diepvriesbessen","1 banaan","200 ml yoghurt of melk"],steps:["Doe alle ingrediënten in een blender.","Mix tot een gladde smoothie.","Voeg indien gewenst wat extra melk toe."]},
+{id:"r19",name:"Paddenstoelenrisotto",category:"Avondeten",time:35,servings:2,level:"Gemiddeld",image:photos.rice,description:"Romige risotto met champignons en Parmezaanse kaas.",ingredients:["160 g risottorijst","200 g champignons","700 ml warme bouillon","1 ui","30 g Parmezaanse kaas"],steps:["Fruit de ui en champignons.","Voeg rijst toe en roer een minuut.","Voeg beetje bij beetje bouillon toe en blijf roeren.","Roer de kaas erdoor zodra de rijst gaar is."]},
+{id:"r20",name:"Havermoutkoekjes",category:"Dessert",time:25,servings:12,level:"Makkelijk",image:photos.bread,description:"Eenvoudige koekjes met havermout en banaan.",ingredients:["2 rijpe bananen","120 g havermout","1/2 tl kaneel","30 g rozijnen"],steps:["Verwarm de oven op 180 °C.","Prak de bananen en meng met de overige ingrediënten.","Maak kleine hoopjes op bakpapier.","Bak 15–18 minuten en laat afkoelen."]},
+{id:"r21",name:"Tomatensoep met basilicum",category:"Lunch",time:25,servings:3,level:"Makkelijk",image:photos.soup,description:"Een klassieke tomatensoep met basilicum.",ingredients:["500 g tomaten","1 ui","500 ml groentebouillon","Basilicum","1 el olijfolie"],steps:["Snipper de ui en snijd de tomaten.","Fruit de ui in olijfolie.","Voeg tomaten en bouillon toe en laat 15 minuten koken.","Pureer de soep en voeg basilicum toe."]},
+{id:"r22",name:"Groentecurry met rijst",category:"Avondeten",time:30,servings:3,level:"Makkelijk",image:photos.rice,description:"Een geurige curry met groenten en kokosmelk.",ingredients:["200 g rijst","400 ml kokosmelk","300 g gemengde groenten","2 el currypasta"],steps:["Kook de rijst.","Bak de currypasta kort in een pan.","Voeg groenten en kokosmelk toe.","Laat garen en serveer met rijst."]},
+{id:"r23",name:"Bruschetta met tomaat",category:"Snacks",time:15,servings:4,level:"Makkelijk",image:photos.bread,description:"Geroosterd brood met tomaat, knoflook en basilicum.",ingredients:["1 stokbrood","3 tomaten","1 teen knoflook","Basilicum","Olijfolie"],steps:["Snijd en rooster het brood.","Snijd de tomaten in kleine blokjes.","Meng met basilicum en olijfolie.","Wrijf het brood licht in met knoflook en beleg."]},
+{id:"r24",name:"Chocolade-bananenbowl",category:"Dessert",time:8,servings:1,level:"Makkelijk",image:photos.dessert,description:"Een snelle zoete bowl met banaan en cacao.",ingredients:["1 banaan","150 g yoghurt","1 tl cacaopoeder","2 el granola"],steps:["Snijd de banaan in plakjes.","Schep yoghurt in een kom en meng met cacao.","Voeg banaan en granola toe."]},
+{id:"r25",name:"Omelet met spinazie",category:"Lunch",time:12,servings:1,level:"Makkelijk",image:photos.breakfast,description:"Een snelle omelet met spinazie en kruiden.",ingredients:["2 eieren","1 handje spinazie","1 el melk","Peper","1 tl olie"],steps:["Klop de eieren met melk en peper.","Bak spinazie kort in olie.","Giet het ei erbij en laat op laag vuur stollen.","Vouw de omelet dubbel."]},
+{id:"r26",name:"Wrap-pizza",category:"Avondeten",time:15,servings:2,level:"Makkelijk",image:photos.pizza,description:"Een snelle pizza op een wrap als dunne bodem.",ingredients:["2 wraps","4 el tomatensaus","100 g geraspte kaas","Paprika","Oregano"],steps:["Verwarm de oven op 200 °C.","Besmeer de wraps met tomatensaus.","Voeg kaas en paprika toe.","Bak 7–10 minuten tot de kaas gesmolten is."]},
+{id:"r27",name:"Kikkererwtensalade",category:"Vegetarisch",time:10,servings:2,level:"Makkelijk",image:photos.salad,description:"Een vullende salade met kikkererwten en citroen.",ingredients:["1 blik kikkererwten","1 komkommer","2 tomaten","1 citroen","2 el olijfolie"],steps:["Spoel en laat de kikkererwten uitlekken.","Snijd de groenten.","Meng citroensap en olie.","Schep alles door elkaar."]},
+{id:"r28",name:"Warme appel uit de oven",category:"Dessert",time:25,servings:2,level:"Makkelijk",image:photos.dessert,description:"Warme appel met kaneel en een knapperige topping.",ingredients:["2 appels","2 el havermout","1 tl kaneel","1 el honing"],steps:["Verwarm de oven op 180 °C.","Snijd de appels in partjes.","Meng havermout, kaneel en honing.","Verdeel over de appels en bak ongeveer 20 minuten."]},
+{id:"r29",name:"Knoflookbrood",category:"Snacks",time:15,servings:4,level:"Makkelijk",image:photos.bread,description:"Knapperig brood met knoflook en kruidenboter.",ingredients:["1 stokbrood","50 g boter","2 tenen knoflook","Peterselie"],steps:["Verwarm de oven op 190 °C.","Meng zachte boter met knoflook en peterselie.","Snijd het brood in en verdeel de boter.","Bak 8–10 minuten."]},
+{id:"r30",name:"Groene pastasalade",category:"Vegetarisch",time:20,servings:2,level:"Makkelijk",image:photos.pasta,description:"Een frisse pastasalade met groene groenten.",ingredients:["200 g pasta","100 g doperwten","1/2 komkommer","2 el pesto","30 g kaas"],steps:["Kook de pasta en laat afkoelen.","Kook de doperwten kort.","Snijd de komkommer.","Meng pasta met pesto, groenten en kaas."]}
 ];
 
-const DAYS=["Maandag","Dinsdag","Woensdag","Donderdag","Vrijdag","Zaterdag","Zondag"];
-const pantryItems=["pasta","tomaat","spinazie","knoflook","kaas","banaan","ei","havermout","melk","appel","kikkererwten","rijst","wortel","ui","wraps","kip","sla","paprika","komkommer","yoghurt","bloem","boter","suiker","chocolade","aardappel","citroen","champignons","bonen","avocado","aardbeien","linzen","courgette"];
-
-let current=recipes[0];
-let servings=current.servings;
-let activeCat="Alles";
-let activeFilter="Alles";
-let grocery=load("rk_grocery",[]);
-let favorites=load("rk_favorites",[]);
-let planner=load("rk_planner",{});
-let pantry=[];
-let timerInterval=null;
-let timerLeft=600;
-
-const $=id=>document.getElementById(id);
-
-function load(key,fallback){
-  try{
-    const value=JSON.parse(localStorage.getItem(key));
-    return value===null?fallback:value;
-  }catch(error){return fallback}
+function loadJSON(key, fallback) {
+  try {
+    const raw = localStorage.getItem(key);
+    return raw === null ? fallback : JSON.parse(raw);
+  } catch (error) {
+    return fallback;
+  }
 }
-function safeSave(key,value){
-  try{localStorage.setItem(key,JSON.stringify(value))}
-  catch(error){toast("Opslaan lukt niet. Controleer de opslagruimte van je browser.")}
+function saveJSON(key, value) {
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+  } catch (error) {
+    notify("Opslaan lukt niet. Controleer de browserinstellingen.");
+  }
 }
-function escapeHTML(value){
-  return String(value??"").replace(/[&<>"']/g,char=>({
+let favorites = loadJSON(STORE.favorites, []);
+let planner = loadJSON(STORE.planner, {});
+let shopping = loadJSON(STORE.shopping, []);
+let ownRecipes = loadJSON(STORE.ownRecipes, []);
+let selectedCategory = "Alles";
+let currentRecipeId = null;
+let timerSeconds = 600;
+let timerInterval = null;
+let timerRunning = false;
+let toastTimeout = null;
+
+function allRecipes() {
+  return [...starterRecipes, ...ownRecipes];
+}
+function getRecipe(id) {
+  return allRecipes().find(r => r.id === id);
+}
+function escapeHTML(value) {
+  return String(value ?? "").replace(/[&<>"']/g, char => ({
     "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
-  })[char]);
+  }[char]));
 }
-function toast(message){
-  $("toast").textContent=message;
-  $("toast").classList.add("show");
-  clearTimeout(toast.timer);
-  toast.timer=setTimeout(()=>$("toast").classList.remove("show"),2600);
+function notify(message) {
+  const toast = document.getElementById("toast");
+  toast.textContent = message;
+  toast.classList.add("show");
+  clearTimeout(toastTimeout);
+  toastTimeout = setTimeout(() => toast.classList.remove("show"), 2600);
 }
-function amount(number){
-  if(Math.abs(number-Math.round(number))<0.001)return String(Math.round(number));
-  if(Math.abs(number*2-Math.round(number*2))<0.001)return String(Math.round(number*2)/2).replace(".",",");
-  return String(Math.round(number*10)/10).replace(".",",");
+function scrollToSection(id) {
+  document.getElementById(id)?.scrollIntoView({behavior:"smooth"});
 }
-function findRecipe(id){return recipes.find(recipe=>recipe.id===id)}
-function safeImage(image){
-  return escapeHTML(image);
+function toggleMenu() {
+  document.getElementById("nav").classList.toggle("open");
 }
-function setRecipe(recipe){
-  if(!recipe)return;
-  current=recipe;
-  servings=recipe.servings;
-  renderDetail();
-  $("heroImg").src=recipe.img;
-  $("heroImg").alt=recipe.title;
-  $("heroTitle").textContent=recipe.title;
-  $("heroCat").textContent=recipe.cat;
-  $("heroDesc").textContent=recipe.desc;
-  $("heroTime").textContent=recipe.time;
-  $("heroDiff").textContent=recipe.diff;
-  $("heroServings").textContent=recipe.servings+" porties";
-  $("heroKcal").textContent=recipe.kcal;
-  $("nKcal").textContent=recipe.kcal;
-  $("nProtein").textContent=recipe.protein+"g";
-  $("nCarbs").textContent=recipe.carbs+"g";
-  $("nFat").textContent=recipe.fat+"g";
-  $("heroFav").textContent=favorites.includes(recipe.id)?"♥ Opgeslagen":"♡ Bewaar favoriet";
-  document.querySelectorAll(".tab").forEach(button=>{
-    button.classList.toggle("active",button.dataset.tab==="ingredients");
-  });
-  ["ingredientsTab","methodTab","tipsTab","nutritionTab"].forEach((id,index)=>{
-    $(id).classList.toggle("hidden",index!==0);
-  });
-}
-function renderDetail(){
-  $("servingNum").textContent=servings;
-  $("ingServings").textContent="Voor "+servings+" porties";
-  $("ingredientColumns").innerHTML="";
-  const half=Math.ceil(current.ingredients.length/2);
-  [current.ingredients.slice(0,half),current.ingredients.slice(half)].forEach(group=>{
-    const column=document.createElement("div");
-    group.forEach(ingredient=>{
-      const index=current.ingredients.indexOf(ingredient);
-      const row=document.createElement("div");
-      row.className="ingredient";
-      const checkbox=document.createElement("input");
-      checkbox.type="checkbox";
-      checkbox.id="ing"+index;
-      const label=document.createElement("label");
-      label.htmlFor=checkbox.id;
-      label.textContent=ingredient[0];
-      const quantity=document.createElement("span");
-      quantity.className="amount";
-      quantity.textContent=amount(ingredient[1]*servings/current.servings)+" "+ingredient[2];
-      row.append(checkbox,label,quantity);
-      column.appendChild(row);
-    });
-    $("ingredientColumns").appendChild(column);
-  });
+document.querySelectorAll("#nav a").forEach(link => {
+  link.addEventListener("click", () => document.getElementById("nav").classList.remove("open"));
+});
 
-  $("shopItems").innerHTML=current.ingredients.map((ingredient,index)=>`
-    <div class="shopitem">
-      <input type="checkbox" id="shop${index}" data-index="${index}">
-      <label for="shop${index}">${escapeHTML(ingredient[0])}</label>
-      <small>${amount(ingredient[1]*servings/current.servings)} ${escapeHTML(ingredient[2])}</small>
-    </div>`).join("");
-
-  $("selectAll").checked=false;
-  $("steps").innerHTML=current.steps.map((step,index)=>`
-    <div class="step">
-      <span class="stepnum">${index+1}</span>
-      <div><strong>Stap ${index+1}</strong><p>${escapeHTML(step)}</p></div>
-    </div>`).join("");
-  $("tips").innerHTML=current.tips.map(tip=>`<div class="tip">💡 ${escapeHTML(tip)}</div>`).join("");
-  $("nutritionDetails").innerHTML=`
-    <div class="resultbox"><strong>Per portie (schatting)</strong>
-    <p>Calorieën: ${current.kcal} kcal</p>
-    <p>Eiwitten: ${current.protein} g</p>
-    <p>Koolhydraten: ${current.carbs} g</p>
-    <p>Vetten: ${current.fat} g</p></div>`;
-  renderGrocery();
+function renderFilters() {
+  document.getElementById("filters").innerHTML = categories.map(category =>
+    `<button class="filter ${selectedCategory===category?"active":""}" onclick="setCategory('${category}')">${category}</button>`
+  ).join("");
 }
-function cardHTML(recipe){
-  const isFavorite=favorites.includes(recipe.id);
-  return `<article class="card">
-    <img src="${safeImage(recipe.img)}" alt="${escapeHTML(recipe.title)}" loading="lazy">
-    <div class="cardbody">
-      <span class="eyebrow">${escapeHTML(recipe.cat)}</span>
-      <h3>${escapeHTML(recipe.title)}</h3>
-      <p>${escapeHTML(recipe.desc)}</p>
-      <div class="meta">
-        <span>◷ ${recipe.time} min.</span>
-        <span>♧ ${escapeHTML(recipe.diff)}</span>
-        <span>♨ ${recipe.kcal} kcal</span>
-      </div>
-      <div class="btnrow">
-        <button class="btn primary" data-open="${recipe.id}">Bekijk recept</button>
-        <button class="btn secondary" data-favorite="${recipe.id}" aria-label="Bewaar ${escapeHTML(recipe.title)}">${isFavorite?"♥":"♡"}</button>
-      </div>
+function setCategory(category) {
+  selectedCategory = category;
+  renderFilters();
+  renderRecipes();
+}
+function recipeCard(recipe) {
+  const saved = favorites.includes(recipe.id);
+  return `<article class="recipe-card">
+    <div class="card-image">
+      <img src="${escapeHTML(recipe.image || photos.default)}" alt="${escapeHTML(recipe.name)}" loading="lazy" onerror="this.onerror=null;this.src='${photos.default}'">
+      <span class="card-category">${escapeHTML(recipe.category)}</span>
+      <button class="favorite ${saved?"saved":""}" aria-label="${saved?"Verwijder favoriet":"Bewaar favoriet"}" onclick="toggleFavorite('${escapeHTML(recipe.id)}')">${saved?"♥":"♡"}</button>
+    </div>
+    <div class="card-content">
+      <h3>${escapeHTML(recipe.name)}</h3>
+      <p>${escapeHTML(recipe.description || "Een heerlijk recept om zelf te ontdekken.")}</p>
+      <div class="card-meta"><span>◷ ${Number(recipe.time)||0} min</span><span>${escapeHTML(recipe.level||"Eigen recept")}</span><span>${Number(recipe.servings)||2} porties</span></div>
+      <button class="card-open" onclick="openRecipe('${escapeHTML(recipe.id)}')">Bekijk recept ↗</button>
     </div>
   </article>`;
 }
-function openRecipe(id){
-  const recipe=findRecipe(id);
-  if(!recipe)return;
-  setRecipe(recipe);
-  $("receptdetail").scrollIntoView({behavior:"smooth",block:"start"});
-}
-function renderCards(){
-  const query=$("search").value.toLowerCase().trim();
-  const list=recipes.filter(recipe=>{
-    const categoryMatch=activeCat==="Alles"||recipe.cat===activeCat||(activeCat==="Vegetarisch"&&recipe.vegetarian);
-    const filterMatch=activeFilter==="Alles"||
-      (activeFilter==="Snel"&&recipe.time<=30)||
-      (activeFilter==="Makkelijk"&&recipe.diff==="Makkelijk")||
-      (activeFilter==="Vegetarisch"&&recipe.vegetarian)||
-      (activeFilter==="Budget"&&recipe.budget)||
-      (activeFilter==="Bakken"&&recipe.cat==="Bakken");
-    const text=[recipe.title,recipe.desc,recipe.cat,...recipe.ingredients.map(item=>item[0])].join(" ").toLowerCase();
-    return categoryMatch&&filterMatch&&(!query||text.includes(query));
+function renderRecipes() {
+  const search = document.getElementById("searchInput").value.trim().toLowerCase();
+  const sort = document.getElementById("sortSelect").value;
+  let recipes = allRecipes().filter(recipe => {
+    const categoryMatch = selectedCategory === "Alles" ||
+      recipe.category === selectedCategory ||
+      (selectedCategory === "Avondeten" && recipe.category === "Avondeten");
+    const haystack = [recipe.name,recipe.category,recipe.description,...(recipe.ingredients||[])].join(" ").toLowerCase();
+    return categoryMatch && haystack.includes(search);
   });
-  $("recipeCards").innerHTML=list.length?list.map(cardHTML).join(""):'<div class="empty">Geen recepten gevonden. Probeer een andere zoekterm of filter.</div>';
-  $("resultCount").textContent=list.length+" recepten";
-}
-function toggleFavorite(id){
-  favorites=favorites.includes(id)?favorites.filter(value=>value!==id):[...favorites,id];
-  safeSave("rk_favorites",favorites);
-  renderCards();
+  if (sort === "time") recipes.sort((a,b) => a.time-b.time);
+  if (sort === "name") recipes.sort((a,b) => a.name.localeCompare(b.name,"nl"));
+  document.getElementById("recipeGrid").innerHTML = recipes.length
+    ? recipes.map(recipeCard).join("")
+    : `<div class="empty-state">Geen recepten gevonden. Probeer een andere zoekterm of categorie.</div>`;
   renderFavorites();
-  $("heroFav").textContent=favorites.includes(current.id)?"♥ Opgeslagen":"♡ Bewaar favoriet";
-  toast(favorites.includes(id)?"Toegevoegd aan favorieten":"Verwijderd uit favorieten");
+  renderAdminStats();
 }
-function renderFavorites(){
-  const list=favorites.map(findRecipe).filter(Boolean);
-  $("favoriteCards").innerHTML=list.length?list.map(cardHTML).join(""):'<div class="empty">Je hebt nog geen favorieten. Klik op ♡ bij een recept om het hier te bewaren.</div>';
+function renderFavorites() {
+  const list = favorites.map(getRecipe).filter(Boolean);
+  document.getElementById("favoriteGrid").innerHTML = list.length
+    ? list.map(recipeCard).join("")
+    : `<div class="empty-state">Je hebt nog geen favorieten. Klik op ♡ bij een recept om het hier te bewaren.</div>`;
 }
-function ingredientText(ingredient,recipe,portionCount){
-  return `${amount(ingredient[1]*portionCount/recipe.servings)} ${ingredient[2]} ${ingredient[0]}`;
+function toggleFavorite(id) {
+  if (favorites.includes(id)) {
+    favorites = favorites.filter(item => item !== id);
+    notify("Verwijderd uit je favorieten.");
+  } else {
+    favorites.push(id);
+    notify("Toegevoegd aan je favorieten.");
+  }
+  saveJSON(STORE.favorites, favorites);
+  renderRecipes();
+  if (currentRecipeId) updateModalFavorite();
 }
-function renderGrocery(){
-  $("cartCount").textContent=grocery.length;
-  const html=grocery.length?grocery.map((item,index)=>`
-    <div class="shopitem">
-      <input type="checkbox" ${item.done?"checked":""} data-grocery-check="${index}" aria-label="Vink ${escapeHTML(item.name)} af">
-      <label style="${item.done?"text-decoration:line-through;color:#98a098":""}">${escapeHTML(item.name)}</label>
-      <small>${escapeHTML(item.qty||"")}</small>
-      <button class="btn outline" style="padding:3px 8px" data-remove="${index}" aria-label="Verwijder ${escapeHTML(item.name)}">×</button>
-    </div>`).join(""):'<p class="muted">Je boodschappenlijst is nog leeg. Voeg ingrediënten toe vanuit een recept of weekplanner.</p>';
-  $("combinedList").innerHTML=html;
-  $("groceryPreview").innerHTML=html;
-  safeSave("rk_grocery",grocery);
+function openRecipe(id) {
+  const recipe = getRecipe(id);
+  if (!recipe) return notify("Dit recept is niet gevonden.");
+  currentRecipeId = id;
+  document.getElementById("modalImage").src = recipe.image || photos.default;
+  document.getElementById("modalImage").alt = recipe.name;
+  document.getElementById("modalCategory").textContent = recipe.category;
+  document.getElementById("modalTitle").textContent = recipe.name;
+  document.getElementById("modalDescription").textContent = recipe.description || "";
+  document.getElementById("modalMeta").textContent = `◷ ${recipe.time} minuten · ${recipe.servings||2} porties · ${recipe.level||"Eigen recept"}`;
+  document.getElementById("modalIngredients").innerHTML = (recipe.ingredients||[]).map(item => `<li>${escapeHTML(item)}</li>`).join("");
+  document.getElementById("modalSteps").innerHTML = (recipe.steps||[]).map(item => `<li>${escapeHTML(item)}</li>`).join("");
+  updateModalFavorite();
+  document.getElementById("recipeModal").classList.add("open");
+  document.body.style.overflow = "hidden";
 }
-function addGrocery(items){
-  items.forEach(item=>{
-    const existing=grocery.find(value=>value.name.toLowerCase()===item.name.toLowerCase()&&value.qty===item.qty);
-    if(!existing)grocery.push({...item,done:false});
-  });
-  renderGrocery();
-  toast("Boodschappenlijst bijgewerkt");
+function closeModal() {
+  document.getElementById("recipeModal").classList.remove("open");
+  document.body.style.overflow = "";
 }
-function selectedIngredients(){
-  return [...document.querySelectorAll("#shopItems input:checked")].map(element=>{
-    const ingredient=current.ingredients[Number(element.dataset.index)];
-    return {name:ingredient[0],qty:ingredientText(ingredient,current,servings)};
-  });
+function updateModalFavorite() {
+  const saved = favorites.includes(currentRecipeId);
+  document.getElementById("modalFavorite").textContent = saved ? "Verwijder favoriet ♥" : "Bewaar favoriet ♡";
 }
-function copyText(text){
-  if(navigator.clipboard&&window.isSecureContext){
-    navigator.clipboard.writeText(text).then(()=>toast("Gekopieerd naar je klembord")).catch(()=>fallbackCopy(text));
-  }else fallbackCopy(text);
+function toggleCurrentFavorite() {
+  if (currentRecipeId) toggleFavorite(currentRecipeId);
 }
-function fallbackCopy(text){
-  const textarea=document.createElement("textarea");
-  textarea.value=text;
-  textarea.style.position="fixed";
-  textarea.style.opacity="0";
-  document.body.appendChild(textarea);
-  textarea.select();
-  try{
-    const ok=document.execCommand("copy");
-    toast(ok?"Gekopieerd naar je klembord":"Kopiëren lukt niet. Selecteer de tekst handmatig.");
-  }catch(error){toast("Kopiëren lukt niet. Selecteer de tekst handmatig.")}
-  textarea.remove();
+function addCurrentRecipeToShopping() {
+  const recipe = getRecipe(currentRecipeId);
+  if (!recipe) return;
+  addIngredients(recipe.ingredients || []);
+  closeModal();
+  scrollToSection("tools");
 }
-function plannerOptions(selected){
-  return '<option value="">Kies recept…</option>'+recipes.map(recipe=>
-    `<option value="${recipe.id}" ${selected===recipe.id?"selected":""}>${escapeHTML(recipe.title)}</option>`
-  ).join("");
-}
-function renderPlanner(){
-  $("planner").innerHTML=DAYS.map((day,index)=>{
-    const id=planner[index]||"";
-    const recipe=findRecipe(id);
-    return `<div class="day">
-      <strong>${day}</strong>
-      <select aria-label="${day}" data-day="${index}">${plannerOptions(id)}</select>
-      <small>${recipe?`◷ ${recipe.time} min. · ${escapeHTML(recipe.cat)}`:"Nog niets gepland"}</small>
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape") closeModal();
+});
+
+function renderPlanner() {
+  const days = ["Maandag","Dinsdag","Woensdag","Donderdag","Vrijdag","Zaterdag","Zondag"];
+  document.getElementById("plannerGrid").innerHTML = days.map((day,index) => {
+    const chosen = planner[index] || "";
+    return `<div class="day"><strong>${day}</strong>
+      <select aria-label="Recept voor ${day}" onchange="setPlan(${index},this.value)">
+        <option value="">Kies recept</option>
+        ${allRecipes().map(recipe => `<option value="${escapeHTML(recipe.id)}" ${chosen===recipe.id?"selected":""}>${escapeHTML(recipe.name)}</option>`).join("")}
+      </select>
+      <small>${chosen && getRecipe(chosen) ? getRecipe(chosen).time+" min" : "Nog niets gepland"}</small>
     </div>`;
   }).join("");
 }
-function plannerIngredients(){
-  const result=[];
-  Object.values(planner).filter(Boolean).forEach(id=>{
-    const recipe=findRecipe(id);
-    if(recipe)recipe.ingredients.forEach(ingredient=>{
-      result.push({name:ingredient[0],qty:ingredientText(ingredient,recipe,recipe.servings)});
-    });
-  });
-  return result;
-}
-function renderPantryOptions(){
-  $("pantryOptions").innerHTML=pantryItems.map(item=>`
-    <label class="check">
-      <input type="checkbox" value="${escapeHTML(item)}" ${pantry.includes(item)?"checked":""}>
-      ${escapeHTML(item.charAt(0).toUpperCase()+item.slice(1))}
-    </label>`).join("");
-}
-function findPantry(){
-  pantry=[...document.querySelectorAll("#pantryOptions input:checked")].map(input=>input.value);
-  const matches=recipes.map(recipe=>({
-    ...recipe,
-    match:recipe.pantry.filter(item=>pantry.some(value=>item.includes(value)||value.includes(item))).length
-  })).filter(recipe=>recipe.match>0).sort((a,b)=>b.match-a.match);
-  $("pantryResults").classList.remove("hidden");
-  $("pantryResults").innerHTML=matches.length?
-    `<strong>${matches.length} recepten passen bij jouw ingrediënten</strong>
-     <div class="btnrow">${matches.slice(0,10).map(recipe=>
-       `<button class="btn secondary" data-pantry-open="${recipe.id}">${escapeHTML(recipe.title)} (${recipe.match} matches)</button>`
-     ).join("")}</div>
-     <p class="note">Controleer de volledige ingrediëntenlijst: mogelijk heb je nog extra ingrediënten nodig.</p>`:
-    "Geen directe matches. Selecteer wat meer ingrediënten.";
-}
-function pickRandom(){
-  const category=$("randomCategory").value;
-  const limit=Number($("randomTime").value);
-  let choices=recipes.filter(recipe=>(category==="Alles"||recipe.cat===category)&&recipe.time<=limit);
-  if(!choices.length)choices=recipes.filter(recipe=>category==="Alles"||recipe.cat===category);
-  if(!choices.length){toast("Geen recepten gevonden voor deze keuze");return}
-  const recipe=choices[Math.floor(Math.random()*choices.length)];
-  $("randomResult").classList.remove("hidden");
-  $("randomResult").innerHTML=`<strong>👑 Jouw recept: ${escapeHTML(recipe.title)}</strong>
-    <p>${escapeHTML(recipe.desc)}</p>
-    <p class="muted">${recipe.time} minuten · ${escapeHTML(recipe.diff)}</p>
-    <button class="btn primary" data-random-open="${recipe.id}">Bekijk dit recept</button>`;
-}
-function updateTimer(){
-  const minutes=Math.floor(timerLeft/60);
-  const seconds=timerLeft%60;
-  $("timerDisplay").textContent=String(minutes).padStart(2,"0")+":"+String(seconds).padStart(2,"0");
-}
-
-/* Categorieën en filters */
-document.querySelectorAll(".cat").forEach(button=>{
-  button.addEventListener("click",()=>{
-    activeCat=button.dataset.cat;
-    activeFilter="Alles";
-    document.querySelectorAll(".cat").forEach(item=>item.classList.toggle("active",item===button));
-    document.querySelectorAll(".filter").forEach(item=>item.classList.toggle("active",item.dataset.filter==="Alles"));
-    renderCards();
-    $("recepten").scrollIntoView({behavior:"smooth"});
-  });
-});
-document.querySelectorAll(".filter").forEach(button=>{
-  button.addEventListener("click",()=>{
-    activeFilter=button.dataset.filter;
-    activeCat="Alles";
-    document.querySelectorAll(".filter").forEach(item=>item.classList.toggle("active",item===button));
-    document.querySelectorAll(".cat").forEach(item=>item.classList.toggle("active",item.dataset.cat==="Alles"));
-    renderCards();
-  });
-});
-$("search").addEventListener("input",renderCards);
-
-/* Recepttabbladen */
-document.querySelectorAll(".tab").forEach(button=>{
-  button.addEventListener("click",()=>{
-    document.querySelectorAll(".tab").forEach(item=>item.classList.toggle("active",item===button));
-    ["ingredientsTab","methodTab","tipsTab","nutritionTab"].forEach(id=>{
-      $(id).classList.toggle("hidden",id!==button.dataset.tab+"Tab");
-    });
-  });
-});
-
-/* Klikken op receptkaarten en favorieten */
-document.addEventListener("click",event=>{
-  const open=event.target.closest("[data-open]");
-  const favorite=event.target.closest("[data-favorite]");
-  const pantryOpen=event.target.closest("[data-pantry-open]");
-  const randomOpen=event.target.closest("[data-random-open]");
-  const remove=event.target.closest("[data-remove]");
-  const groceryCheck=event.target.closest("[data-grocery-check]");
-
-  if(open)openRecipe(open.dataset.open);
-  if(favorite)toggleFavorite(favorite.dataset.favorite);
-  if(pantryOpen)openRecipe(pantryOpen.dataset.pantryOpen);
-  if(randomOpen)openRecipe(randomOpen.dataset.randomOpen);
-
-  if(remove){
-    grocery.splice(Number(remove.dataset.remove),1);
-    renderGrocery();
-  }
-  if(groceryCheck){
-    grocery[Number(groceryCheck.dataset.groceryCheck)].done=groceryCheck.checked;
-    renderGrocery();
-  }
-});
-
-$("heroOpen").onclick=()=>$("receptdetail").scrollIntoView({behavior:"smooth"});
-$("heroRandom").onclick=()=>{pickRandom();$("randomizer").scrollIntoView({behavior:"smooth"})};
-$("heroFav").onclick=()=>toggleFavorite(current.id);
-
-$("minus").onclick=()=>{
-  if(servings>1){servings--;renderDetail()}
-};
-$("plus").onclick=()=>{
-  if(servings<20){servings++;renderDetail()}
-};
-
-$("selectAll").onchange=event=>{
-  document.querySelectorAll("#shopItems input").forEach(input=>input.checked=event.target.checked);
-};
-$("addSelected").onclick=()=>{
-  const items=selectedIngredients();
-  if(!items.length)return toast("Selecteer eerst ingrediënten");
-  addGrocery(items);
-};
-$("copySelected").onclick=()=>{
-  const items=selectedIngredients();
-  if(!items.length)return toast("Selecteer eerst ingrediënten");
-  copyText(items.map(item=>"• "+item.qty).join("\n"));
-};
-
-function openShoppingList(){
-  $("listModal").classList.remove("hidden");
-  renderGrocery();
-}
-$("openList").onclick=openShoppingList;
-$("openList2").onclick=openShoppingList;
-$("closeModal").onclick=()=>$("listModal").classList.add("hidden");
-$("listModal").onclick=event=>{
-  if(event.target===$("listModal"))$("listModal").classList.add("hidden");
-};
-document.addEventListener("keydown",event=>{
-  if(event.key==="Escape")$("listModal").classList.add("hidden");
-});
-$("copyCombined").onclick=()=>{
-  copyText(grocery.map(item=>`${item.done?"[x]":"[ ]"} ${item.qty||""} ${item.name}`.trim()).join("\n"));
-};
-$("clearCombined").onclick=()=>{
-  if(confirm("Weet je zeker dat je de boodschappenlijst wilt wissen?")){
-    grocery=[];
-    renderGrocery();
-    toast("Boodschappenlijst gewist");
-  }
-};
-
-/* Weekplanner */
-$("clearPlanner").onclick=()=>{
-  planner={};
-  safeSave("rk_planner",planner);
+function setPlan(day,id) {
+  if (id) planner[day] = id;
+  else delete planner[day];
+  saveJSON(STORE.planner,planner);
   renderPlanner();
-  toast("Weekplanner gewist");
-};
-$("savePlanner").onclick=()=>{
-  planner={};
-  document.querySelectorAll("#planner select").forEach(select=>{
-    if(select.value)planner[select.dataset.day]=select.value;
-  });
-  safeSave("rk_planner",planner);
-  renderPlanner();
-  toast("Weekmenu bewaard");
-};
-$("planner").addEventListener("change",event=>{
-  if(event.target.matches("select")){
-    planner[event.target.dataset.day]=event.target.value;
-    safeSave("rk_planner",planner);
-    renderPlanner();
-  }
-});
-$("plannerShopping").onclick=()=>{
-  const items=plannerIngredients();
-  if(!items.length)return toast("Kies eerst recepten in je weekplanner");
-  addGrocery(items);
-  $("boodschappenlijst").scrollIntoView({behavior:"smooth"});
-};
-
-/* Voorraadchecker en receptkiezer */
-$("findPantry").onclick=findPantry;
-$("clearPantry").onclick=()=>{
-  pantry=[];
-  renderPantryOptions();
-  $("pantryResults").classList.add("hidden");
-};
-$("randomPick").onclick=pickRandom;
-
-/* Eigen recepten bewaren */
-function renderSubmissions(){
-  const entries=load("rk_submissions",[]);
-  $("submittedRecipes").innerHTML=entries.length?
-    `<div class="resultbox"><strong>Jouw lokaal bewaarde inzendingen</strong>
-    <ul class="saved-list">${entries.map(entry=>
-      `<li>${escapeHTML(entry.name)} — ${escapeHTML(entry.cat)}, ${entry.time} min. <span class="smallprint">(${escapeHTML(entry.date)})</span></li>`
-    ).join("")}</ul></div>`:"";
+  notify("Weekplanning bijgewerkt.");
 }
-$("recipeSubmit").addEventListener("submit",event=>{
-  event.preventDefault();
-  const entry={
-    name:$("submitName").value.trim(),
-    author:$("submitAuthor").value.trim()||"Bezoeker",
-    cat:$("submitCategory").value,
-    time:Number($("submitTime").value),
-    ingredients:$("submitIngredients").value.trim(),
-    steps:$("submitSteps").value.trim(),
-    date:new Date().toLocaleDateString("nl-NL")
-  };
-  if(!entry.name||!entry.ingredients||!entry.steps||entry.time<1){
-    toast("Vul alle verplichte velden correct in");
-    return;
-  }
-  const entries=load("rk_submissions",[]);
-  entries.push(entry);
-  safeSave("rk_submissions",entries);
-  renderSubmissions();
-  $("recipeSubmit").reset();
-  toast("Eigen recept op dit apparaat bewaard");
-});
+function clearPlanner() {
+  if (!confirm("Wil je de volledige weekplanning wissen?")) return;
+  planner = {};
+  saveJSON(STORE.planner,planner);
+  renderPlanner();
+  notify("Weekplanning gewist.");
+}
+function addPlanToShopping() {
+  const recipes = Object.values(planner).map(getRecipe).filter(Boolean);
+  if (!recipes.length) return notify("Kies eerst recepten in de weekplanner.");
+  addIngredients(recipes.flatMap(recipe => recipe.ingredients || []));
+  scrollToSection("tools");
+}
 
-/* Timer */
-$("startTimer").onclick=()=>{
-  clearInterval(timerInterval);
-  const minutes=Math.max(1,Math.min(240,Number($("timerMinutes").value)||1));
-  timerLeft=minutes*60;
-  updateTimer();
-  $("timerStatus").textContent="Timer loopt…";
-  timerInterval=setInterval(()=>{
-    timerLeft--;
-    updateTimer();
-    if(timerLeft<=0){
-      clearInterval(timerInterval);
-      timerInterval=null;
-      $("timerStatus").textContent="Tijd is om! Controleer je gerecht.";
-      toast("⏰ De kooktimer is afgelopen!");
+function renderShopping() {
+  const list = document.getElementById("shoppingList");
+  list.innerHTML = shopping.length ? shopping.map((item,index) =>
+    `<li><input type="checkbox" ${item.checked?"checked":""} aria-label="Markeer ${escapeHTML(item.name)} als klaar" onchange="toggleShopping(${index},this.checked)">
+      <label style="${item.checked?"text-decoration:line-through;opacity:.55":""}">${escapeHTML(item.name)}</label>
+      <button class="remove-btn" aria-label="Verwijder ${escapeHTML(item.name)}" onclick="removeShopping(${index})">×</button></li>`
+  ).join("") : `<li style="color:var(--muted)">Je lijst is nog leeg.</li>`;
+}
+function addShoppingItem() {
+  const input = document.getElementById("shoppingInput");
+  const name = input.value.trim();
+  if (!name) return notify("Vul eerst een ingrediënt in.");
+  addIngredients([name]);
+  input.value = "";
+}
+function addIngredients(items) {
+  let added = 0;
+  items.forEach(raw => {
+    const name = String(raw).trim();
+    if (name && !shopping.some(item => item.name.toLowerCase() === name.toLowerCase())) {
+      shopping.push({name,checked:false});
+      added++;
+    }
+  });
+  saveJSON(STORE.shopping,shopping);
+  renderShopping();
+  notify(added ? `${added} ingrediënt(en) toegevoegd.` : "Deze ingrediënten staan al op je lijst.");
+}
+function toggleShopping(index,checked) {
+  if (!shopping[index]) return;
+  shopping[index].checked = checked;
+  saveJSON(STORE.shopping,shopping);
+  renderShopping();
+}
+function removeShopping(index) {
+  shopping.splice(index,1);
+  saveJSON(STORE.shopping,shopping);
+  renderShopping();
+}
+function clearShoppingList() {
+  if (!confirm("Wil je de boodschappenlijst leegmaken?")) return;
+  shopping = [];
+  saveJSON(STORE.shopping,shopping);
+  renderShopping();
+  document.getElementById("shoppingStatus").textContent = "Lijst leeggemaakt.";
+}
+async function copyShoppingList() {
+  const text = shopping.map(item => `${item.checked?"[x]":"[ ]"} ${item.name}`).join("\n");
+  if (!text) return notify("Je boodschappenlijst is leeg.");
+  try {
+    await navigator.clipboard.writeText(text);
+    document.getElementById("shoppingStatus").textContent = "Lijst gekopieerd.";
+    notify("Boodschappenlijst gekopieerd.");
+  } catch (error) {
+    const area = document.createElement("textarea");
+    area.value = text;
+    document.body.appendChild(area);
+    area.select();
+    const success = document.execCommand("copy");
+    area.remove();
+    notify(success ? "Boodschappenlijst gekopieerd." : "Kopiëren niet gelukt; selecteer de lijst handmatig.");
+  }
+}
+
+function updateTimerDisplay() {
+  const minutes = Math.floor(timerSeconds/60).toString().padStart(2,"0");
+  const seconds = (timerSeconds%60).toString().padStart(2,"0");
+  document.getElementById("timerDisplay").textContent = `${minutes}:${seconds}`;
+}
+function startTimer() {
+  if (timerRunning) return;
+  if (timerSeconds <= 0) {
+    const minutes = Math.max(1,Math.min(240,Number(document.getElementById("timerMinutes").value)||1));
+    timerSeconds = Math.round(minutes*60);
+  }
+  timerRunning = true;
+  document.getElementById("timerStatus").textContent = "Timer loopt. Houd deze pagina open.";
+  timerInterval = setInterval(() => {
+    timerSeconds--;
+    updateTimerDisplay();
+    if (timerSeconds <= 0) {
+      pauseTimer();
+      timerSeconds = 0;
+      updateTimerDisplay();
+      document.getElementById("timerStatus").textContent = "De timer is afgelopen!";
+      notify("⏰ De kooktimer is afgelopen!");
+      try {
+        if ("Notification" in window && Notification.permission === "granted") {
+          new Notification("ReceptenKoning", {body:"Je kooktimer is afgelopen!"});
+        }
+      } catch (error) {}
     }
   },1000);
-};
-$("stopTimer").onclick=()=>{
+}
+function pauseTimer() {
   clearInterval(timerInterval);
-  timerInterval=null;
-  $("timerStatus").textContent="Timer gestopt.";
-};
+  timerInterval = null;
+  timerRunning = false;
+  document.getElementById("timerStatus").textContent = "Timer gepauzeerd.";
+}
+function resetTimer() {
+  pauseTimer();
+  const minutes = Math.max(1,Math.min(240,Number(document.getElementById("timerMinutes").value)||10));
+  timerSeconds = Math.round(minutes*60);
+  updateTimerDisplay();
+  document.getElementById("timerStatus").textContent = "Timer gereset.";
+}
+document.getElementById("timerMinutes").addEventListener("change", () => {
+  if (!timerRunning) resetTimer();
+});
 
-/* Start de website */
-$("year").textContent=new Date().getFullYear();
-setRecipe(current);
-renderCards();
-renderFavorites();
-renderPlanner();
-renderPantryOptions();
-renderGrocery();
-renderSubmissions();
+document.getElementById("recipeForm").addEventListener("submit", event => {
+  event.preventDefault();
+  const name = document.getElementById("ownName").value.trim();
+  const category = document.getElementById("ownCategory").value;
+  const time = Number(document.getElementById("ownTime").value);
+  const ingredients = document.getElementById("ownIngredients").value.split("\n").map(s=>s.trim()).filter(Boolean);
+  const steps = document.getElementById("ownSteps").value.split("\n").map(s=>s.trim()).filter(Boolean);
+  if (!name || !ingredients.length || !steps.length || !Number.isFinite(time) || time < 1) {
+    return notify("Controleer de naam, tijd, ingrediënten en bereidingswijze.");
+  }
+  const recipe = {
+    id:"own_"+Date.now().toString(36)+"_"+Math.random().toString(36).slice(2,7),
+    name,category,time,servings:2,level:"Eigen recept",image:photos.default,
+    description:"Een zelf toegevoegd recept uit jouw eigen keuken.",
+    ingredients,steps
+  };
+  ownRecipes.push(recipe);
+  saveJSON(STORE.ownRecipes,ownRecipes);
+  event.target.reset();
+  document.getElementById("ownTime").value = 25;
+  selectedCategory = "Alles";
+  renderFilters();
+  renderRecipes();
+  renderPlanner();
+  notify("Je eigen recept is opgeslagen.");
+  openRecipe(recipe.id);
+});
+
+document.getElementById("contactForm").addEventListener("submit",event => {
+  event.preventDefault();
+  const name = document.getElementById("contactName").value.trim();
+  const email = document.getElementById("contactEmail").value.trim();
+  const message = document.getElementById("contactMessage").value.trim();
+  const destination = "jouwemail@voorbeeld.nl";
+  if (destination === "jouwemail@voorbeeld.nl") {
+    notify("Vervang eerst jouwemail@voorbeeld.nl in de code door je eigen e-mailadres.");
+    return;
+  }
+  const subject = encodeURIComponent("Bericht voor ReceptenKoning");
+  const body = encodeURIComponent(`Naam: ${name}\nE-mail: ${email}\n\nBericht:\n${message}`);
+  window.location.href = `mailto:${destination}?subject=${subject}&body=${body}`;
+});
+
+function renderAdminStats() {
+  const el = document.getElementById("adminStats");
+  if (el) el.textContent = `${starterRecipes.length} standaardrecepten · ${ownRecipes.length} eigen recepten · ${favorites.length} favorieten · ${shopping.length} boodschappenitems`;
+}
+function exportData() {
+  const data = {version:1,ownRecipes,favorites,planner,shopping,exportedAt:new Date().toISOString()};
+  const blob = new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "receptenkoning-backup.json";
+  a.click();
+  URL.revokeObjectURL(url);
+  notify("Back-up voorbereid.");
+}
+function importData(event) {
+  const file = event.target.files && event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    try {
+      const data = JSON.parse(reader.result);
+      if (!data || !Array.isArray(data.ownRecipes) || !Array.isArray(data.favorites) ||
+          typeof data.planner !== "object" || !Array.isArray(data.shopping)) {
+        throw new Error("Ongeldig formaat");
+      }
+      if (!confirm("Wil je de lokale gegevens vervangen door deze back-up?")) return;
+      ownRecipes = data.ownRecipes.filter(r=>r && typeof r.id==="string" && typeof r.name==="string");
+      favorites = data.favorites.filter(id=>typeof id==="string");
+      planner = data.planner || {};
+      shopping = data.shopping.filter(item=>item && typeof item.name==="string");
+      saveJSON(STORE.ownRecipes,ownRecipes);
+      saveJSON(STORE.favorites,favorites);
+      saveJSON(STORE.planner,planner);
+      saveJSON(STORE.shopping,shopping);
+      renderEverything();
+      notify("Back-up geïmporteerd.");
+    } catch (error) {
+      notify("Dit bestand is geen geldige ReceptenKoning-back-up.");
+    } finally {
+      event.target.value = "";
+    }
+  };
+  reader.readAsText(file);
+}
+function resetMyRecipes() {
+  if (!confirm("Weet je zeker dat je al je eigen recepten wilt verwijderen?")) return;
+  const removedIds = new Set(ownRecipes.map(r=>r.id));
+  ownRecipes = [];
+  favorites = favorites.filter(id=>!removedIds.has(id));
+  planner = Object.fromEntries(Object.entries(planner).filter(([,id])=>!removedIds.has(id)));
+  saveJSON(STORE.ownRecipes,ownRecipes);
+  saveJSON(STORE.favorites,favorites);
+  saveJSON(STORE.planner,planner);
+  renderEverything();
+  notify("Eigen recepten verwijderd.");
+}
+function resetAllLocalData() {
+  if (!confirm("Dit verwijdert je favorieten, planning, boodschappenlijst en eigen recepten van dit apparaat. Doorgaan?")) return;
+  Object.values(STORE).forEach(key=>localStorage.removeItem(key));
+  favorites = [];
+  planner = {};
+  shopping = [];
+  ownRecipes = [];
+  renderEverything();
+  notify("Lokale gegevens gereset.");
+}
+function renderEverything() {
+  renderFilters();
+  renderRecipes();
+  renderPlanner();
+  renderShopping();
+  renderAdminStats();
+}
+document.getElementById("year").textContent = new Date().getFullYear();
+renderEverything();
+updateTimerDisplay();
 </script>
 </body>
 </html>
